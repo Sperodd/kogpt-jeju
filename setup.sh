@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "${BASH_SOURCE[0]}")"
+MODE="${1:-install}"
+case "$MODE" in
+  install|train|serve|all) ;;
+  *) echo "사용법: bash setup.sh [install|train|serve|all]"; exit 1 ;;
+esac
+if [[ -d .venv && ! -f .venv/bin/activate ]]; then
+  echo "Windows .venv는 Linux에서 사용할 수 없습니다. 업로드에서 .venv를 제외하세요."
+  exit 1
+fi
+if [[ ! -f .venv/bin/activate ]]; then
+  python3 -m venv --system-site-packages .venv
+fi
+source .venv/bin/activate
+if [[ "$MODE" == install || "$MODE" == all ]]; then
+  python -m pip install --upgrade pip
+  python -m pip install -r requirements.txt
+fi
+python -c 'import torch; print("PyTorch:", torch.__version__, "CUDA:", torch.cuda.is_available()); print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else "CPU 실행: 학습은 오래 걸릴 수 있습니다.")'
+if [[ "$MODE" == train || "$MODE" == all ]]; then
+  python model.py
+fi
+if [[ "$MODE" == serve || "$MODE" == all ]]; then
+  if [[ -z "${APP_TOKEN:-}" ]]; then
+    APP_TOKEN="$(python -c 'import secrets; print(secrets.token_urlsafe(24))')"
+    export APP_TOKEN
+    printf '\n웹 화면에 입력할 접속 키: %s\n\n' "$APP_TOKEN"
+  else
+    echo "환경변수 APP_TOKEN을 접속 키로 사용합니다."
+  fi
+  exec python -m uvicorn app:app --host 0.0.0.0 --port 8000 --workers 1
+fi
+echo "다음 명령: bash setup.sh train / bash setup.sh serve"

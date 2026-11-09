@@ -1,0 +1,4 @@
+torch>=2.6,<3
+transformers==4.57.1
+fastapi>=0.115,<1
+uvicorn>=0.30,<1

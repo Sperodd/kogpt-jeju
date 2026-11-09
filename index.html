@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>제주어 이어쓰기 비교</title>
+<style>
+*{box-sizing:border-box}body{font-family:system-ui,sans-serif;background:#f6f8f6;color:#20372b;margin:0;padding:32px 20px}
+main{max-width:980px;margin:auto}h1{font-size:30px}p{line-height:1.7}form,article{background:white;border:1px solid #dce6df;border-radius:12px;padding:24px}
+label{display:block;margin:16px 0 8px;font-weight:600}input,textarea,button{font:inherit;border-radius:6px;padding:10px;border:1px solid #abbeb1}textarea{width:100%;min-height:110px}input[type=password]{width:100%}
+.options,.results{display:grid;grid-template-columns:1fr 1fr;gap:18px}.options input{width:100%}
+button{background:#216342;color:white;border:0;margin-top:20px;cursor:pointer}button:disabled{opacity:.5;cursor:wait}
+.results{margin-top:24px}h2{font-size:19px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;line-height:1.8;min-height:120px}
+small{color:#617267}#status{min-height:24px;color:#943b26}@media(max-width:650px){.results,.options{grid-template-columns:1fr}body{padding:20px 12px}}
+</style>
+</head>
+<body><main>
+<h1>제주어 이어쓰기 비교</h1>
+<p>문장의 앞부분을 입력하면 두 모델이 뒤를 이어 씁니다.<br>제주어 문장만 추가 학습한 모델이므로 번역기나 질문에 답하는 챗봇은 아닙니다.</p>
+<form id="form">
+<label for="token">접속 키</label><input id="token" type="password" required autocomplete="off" placeholder="서버 터미널에 표시된 키">
+<label for="prompt">이어 쓸 문장</label><textarea id="prompt" maxlength="500" required placeholder="오늘 바당에 가 보니까"></textarea>
+<div class="options"><div><label for="tokens">최대 생성 토큰</label><input id="tokens" type="number" min="8" max="100" value="60" required></div>
+<div><label for="seed">난수 시드</label><input id="seed" type="number" min="0" max="2147483647" value="42" required></div></div>
+<button id="submit" type="submit">두 모델 비교하기</button>
+<p id="status" role="status" aria-live="polite"></p>
+<small>민감한 정보는 입력하지 마세요. 접속 키는 브라우저 저장소에 저장하지 않습니다.</small>
+</form>
+<div class="results">
+<article><h2>원본 KoGPT2</h2><small>한국어 사전학습 모델</small><pre id="base">생성된 뒷부분이 표시됩니다.</pre><small id="base-time"></small></article>
+<article><h2>제주어 추가 학습 KoGPT2</h2><small>sentences.txt로 미세조정한 모델</small><pre id="finetuned">생성된 뒷부분이 표시됩니다.</pre><small id="finetuned-time"></small></article>
+</div><p><small>두 모델에 같은 입력·시드·생성 설정을 사용합니다. 자연스러운 제주어인지는 결과를 직접 비교해 보세요.</small></p>
+</main>
+<script>
+const byId = id => document.getElementById(id);
+byId('form').addEventListener('submit', async event => {
+  event.preventDefault();
+  byId('submit').disabled = true;
+  byId('status').textContent = '두 모델이 차례로 생성 중입니다…';
+  for (const name of ['base','finetuned']) {byId(name).textContent = ''; byId(name+'-time').textContent = '';}
+  try {
+    const response = await fetch('./compare', {
+      method:'POST', headers:{'Content-Type':'application/json','X-App-Token':byId('token').value},
+      body:JSON.stringify({prompt:byId('prompt').value,max_new_tokens:Number(byId('tokens').value),seed:Number(byId('seed').value)})
+    });
+    let data;
+    try { data = await response.json(); } catch { throw new Error('서버 연결 또는 프록시 시간 초과입니다. 서버 상태를 확인하고 생성 토큰을 줄여보세요.'); }
+    if (!response.ok) throw new Error(typeof data.detail === 'string' ? data.detail : '입력값을 확인하세요.');
+    for (const name of ['base','finetuned']) {
+      byId(name).textContent = data[name].continuation || '(바로 문장 종료 토큰을 생성했습니다.)';
+      byId(name+'-time').textContent = data[name].seconds+'초';
+    }
+    byId('status').textContent = '완료 · 실행 장치: '+data.device;
+  } catch (error) { byId('status').textContent = error.message; }
+  finally { byId('submit').disabled = false; }
+});
+</script></body></html>

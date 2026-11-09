@@ -3,8 +3,8 @@ set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")"
 MODE="${1:-install}"
 case "$MODE" in
-  install|train|serve|all) ;;
-  *) echo "사용법: bash setup.sh [install|train|serve|all]"; exit 1 ;;
+  install|train|experiment|serve|all) ;;
+  *) echo "사용법: bash setup.sh [install|train|experiment|serve|all]"; exit 1 ;;
 esac
 if [[ -d .venv && ! -f .venv/bin/activate ]]; then
   echo "Windows .venv는 Linux에서 사용할 수 없습니다. 업로드에서 .venv를 제외하세요."
@@ -17,10 +17,14 @@ source .venv/bin/activate
 if [[ "$MODE" == install || "$MODE" == all ]]; then
   python -m pip install --upgrade pip
   python -m pip install -r requirements.txt
+  python -m ipykernel install --sys-prefix --name python3 --display-name "Python 3 (KoGPT-Jeju)"
 fi
 python -c 'import torch; print("PyTorch:", torch.__version__, "CUDA:", torch.cuda.is_available()); print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else "CPU 실행: 학습은 오래 걸릴 수 있습니다.")'
 if [[ "$MODE" == train || "$MODE" == all ]]; then
   python model.py
+fi
+if [[ "$MODE" == experiment ]]; then
+  python experiment.py
 fi
 if [[ "$MODE" == serve || "$MODE" == all ]]; then
   if [[ -z "${APP_TOKEN:-}" ]]; then

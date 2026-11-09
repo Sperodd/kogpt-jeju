@@ -5,3 +5,5 @@ outputs/
 .env
 .cache/
 sentences.txt
+prepared/
+*.tar.gz

@@ -1,0 +1,4015 @@
+{
+  "status": "complete",
+  "base_model": "skt/kogpt2-base-v2",
+  "config": {
+    "data": "/workspace/kogpt-jeju/prepared",
+    "output": "/workspace/kogpt-jeju/outputs/assignment4",
+    "base_model": "skt/kogpt2-base-v2",
+    "epochs": 3,
+    "batch_size": 32,
+    "max_length": 128,
+    "full_lr": 5e-05,
+    "lora_lr": 0.0002,
+    "seed": 42
+  },
+  "environment": {
+    "python": "3.12.3",
+    "torch": "2.15.0+cu132",
+    "transformers": "4.57.1",
+    "device": "cuda",
+    "gpu": "NVIDIA RTX PRO 4500 Blackwell Server Edition"
+  },
+  "data": {
+    "source": "AI Hub 한국어 방언 발화(제주도), 비식별화완료 제주도 학습용데이터 1",
+    "source_url": "https://www.aihub.or.kr/aihubdata/data/view.do?dataSetSn=121",
+    "available_json_files": 5042,
+    "selected_json_files": 300,
+    "selection": "정렬한 JSON 목록을 seed로 섞은 후 max_files개 선택 (0=전체)",
+    "seed": 42,
+    "raw_and_removed_counts": {
+      "raw_utterances": 165842,
+      "same_as_standard": 90808,
+      "fewer_than_two_words": 3117,
+      "anonymization_marker": 6187,
+      "exact_duplicate": 659
+    },
+    "split_sentences": {
+      "train": 53561,
+      "validation": 6478,
+      "test": 5032
+    },
+    "split_documents": {
+      "train": 240,
+      "validation": 30,
+      "test": 30
+    },
+    "split_nonempty_documents": {
+      "train": 240,
+      "validation": 30,
+      "test": 30
+    },
+    "split_sha256": {
+      "train": "635252b71c0fa1ed4a8267f87ab448f8713ee28b86f451e68188842cb23ab98e",
+      "validation": "c07c9dee4aba9999f5d50125c1a0dfeb249fcd8dab6dad1c8b68eac870e803a8",
+      "test": "cf48bfede1137432422642d04cb9d5f46aea2c9f809699724f6f961bc1ff6818"
+    },
+    "split_note": "대화 JSON 단위 80/10/10. 문장 비율은 달라질 수 있음. 파일 간 동일 화자는 확인되지 않아 화자 독립을 보장하지 않음.",
+    "deduplication": "train→validation→test 순으로 정제 후 완전 동일 문장 제거",
+    "manifest": [
+      {
+        "file": "DZJD20000387.json",
+        "sha256": "c0b01799e4c9d5dabdcf56296888b981a9e686c6d1425dce92d39e520c8c9894",
+        "group_id": "DZJD20000387",
+        "split": "train",
+        "kept": 103,
+        "removed": {
+          "same_as_standard": 398,
+          "fewer_than_two_words": 12,
+          "anonymization_marker": 15
+        }
+      },
+      {
+        "file": "DZHF20000891.json",
+        "sha256": "07488cc5b84971ba232aad3babd77b6f9255aabf028f12913bc76e0600d155b6",
+        "group_id": "DZHF20000891",
+        "split": "train",
+        "kept": 116,
+        "removed": {
+          "same_as_standard": 175,
+          "anonymization_marker": 2,
+          "fewer_than_two_words": 9
+        }
+      },
+      {
+        "file": "DZHF20000677.json",
+        "sha256": "fc4582fdc34c741bb1ac271168b59d0ca796d568e6c9377ffa834ef611bc3f36",
+        "group_id": "DZHF20000677",
+        "split": "train",
+        "kept": 423,
+        "removed": {
+          "fewer_than_two_words": 8,
+          "same_as_standard": 91
+        }
+      },
+      {
+        "file": "DZJD20001807.json",
+        "sha256": "6abd679140a6ec664f73499deac609e966352a8e3b6e890be4177a1fee302b5d",
+        "group_id": "DZJD20001807",
+        "split": "train",
+        "kept": 431,
+        "removed": {
+          "anonymization_marker": 71,
+          "same_as_standard": 237,
+          "fewer_than_two_words": 16
+        }
+      },
+      {
+        "file": "DZHF20002955.json",
+        "sha256": "b9296d6710ce1d782b8e030cf1adc269f553a658be1ba0c8c47eff5f32aa8814",
+        "group_id": "DZHF20002955",
+        "split": "train",
+        "kept": 187,
+        "removed": {
+          "same_as_standard": 316,
+          "fewer_than_two_words": 9
+        }
+      },
+      {
+        "file": "DZES20000325.json",
+        "sha256": "c78a25f0bbf5976c8711ee9a1515e4dee8295730f3e63585b642ea15bde3fb40",
+        "group_id": "DZES20000325",
+        "split": "train",
+        "kept": 33,
+        "removed": {
+          "same_as_standard": 360,
+          "anonymization_marker": 17,
+          "fewer_than_two_words": 3
+        }
+      },
+      {
+        "file": "DZES20000692.json",
+        "sha256": "19fd4a124ef8320a115bd392f58bf720a00c12ae5c9737e6367869e7a795ecfd",
+        "group_id": "DZES20000692",
+        "split": "train",
+        "kept": 21,
+        "removed": {
+          "same_as_standard": 179,
+          "anonymization_marker": 7,
+          "fewer_than_two_words": 2
+        }
+      },
+      {
+        "file": "DZHF20002280.json",
+        "sha256": "1f3bdc3cd12ce6de082c7131ff99f0983f1d99d2f600a0005281aea47a4653d7",
+        "group_id": "DZHF20002280",
+        "split": "train",
+        "kept": 209,
+        "removed": {
+          "same_as_standard": 348,
+          "fewer_than_two_words": 20,
+          "anonymization_marker": 53
+        }
+      },
+      {
+        "file": "DZHF20000426.json",
+        "sha256": "12d16eafb71b68eb233e0476af55d979608944d4967179789846f9e0ed0e947b",
+        "group_id": "DZHF20000426",
+        "split": "train",
+        "kept": 96,
+        "removed": {
+          "anonymization_marker": 5,
+          "same_as_standard": 109,
+          "fewer_than_two_words": 13
+        }
+      },
+      {
+        "file": "DZJD20001360.json",
+        "sha256": "b1de842cd4f29596266337c6ecdc87cb4275d9e8cb74eeb255cab9b3da7a6dcb",
+        "group_id": "DZJD20001360",
+        "split": "train",
+        "kept": 303,
+        "removed": {
+          "same_as_standard": 369,
+          "fewer_than_two_words": 4,
+          "exact_duplicate": 4,
+          "anonymization_marker": 26
+        }
+      },
+      {
+        "file": "DZHF20000602.json",
+        "sha256": "6bf5b8e7390bd34a509d5e3db88ff85f600227869fd61ac03712e3ef8da6599a",
+        "group_id": "DZHF20000602",
+        "split": "train",
+        "kept": 360,
+        "removed": {
+          "same_as_standard": 173,
+          "anonymization_marker": 1,
+          "fewer_than_two_words": 16
+        }
+      },
+      {
+        "file": "DZJD20000203.json",
+        "sha256": "ffff947740c2544c1d701724299f2b0d6ad30d307d74eed1ec50891b592b1501",
+        "group_id": "DZJD20000203",
+        "split": "train",
+        "kept": 131,
+        "removed": {
+          "anonymization_marker": 189,
+          "same_as_standard": 228,
+          "exact_duplicate": 1,
+          "fewer_than_two_words": 2
+        }
+      },
+      {
+        "file": "DZHF20000075.json",
+        "sha256": "66512d4c9dd6f4d1b062447d1981a815541001e2c653d9933ad9b58be4920010",
+        "group_id": "DZHF20000075",
+        "split": "train",
+        "kept": 120,
+        "removed": {
+          "anonymization_marker": 22,
+          "same_as_standard": 378,
+          "fewer_than_two_words": 1
+        }
+      },
+      {
+        "file": "DZHF20002633.json",
+        "sha256": "a36b85092b08866cde5c1be8db4e5a6cfd0ed73f2c8e6527dae61ebbb77958d4",
+        "group_id": "DZHF20002633",
+        "split": "train",
+        "kept": 303,
+        "removed": {
+          "same_as_standard": 177,
+          "fewer_than_two_words": 15,
+          "anonymization_marker": 17,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZHF20000192.json",
+        "sha256": "99649f6e22baf9a8c56cbbf10f13fa221958e4c405e2114464df2f59f571b391",
+        "group_id": "DZHF20000192",
+        "split": "train",
+        "kept": 326,
+        "removed": {
+          "same_as_standard": 318,
+          "anonymization_marker": 18,
+          "fewer_than_two_words": 15,
+          "exact_duplicate": 3
+        }
+      },
+      {
+        "file": "DZJD20001683.json",
+        "sha256": "c0b18e87edbe3cd1fba9b4f2c8a658e26bd539c03d28fee3f33370957ab14f5d",
+        "group_id": "DZJD20001683",
+        "split": "train",
+        "kept": 154,
+        "removed": {
+          "same_as_standard": 372,
+          "fewer_than_two_words": 15,
+          "anonymization_marker": 22,
+          "exact_duplicate": 4
+        }
+      },
+      {
+        "file": "DZJD20001649.json",
+        "sha256": "fc496f6ad5fb316154772e9c87e26574223a740852fe65440e2ca8733b35327c",
+        "group_id": "DZJD20001649",
+        "split": "train",
+        "kept": 240,
+        "removed": {
+          "same_as_standard": 344,
+          "fewer_than_two_words": 12,
+          "anonymization_marker": 21,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZHF20002875.json",
+        "sha256": "ed889e2b0d2b763a58fe34a621277ea32242e4898aa2796bb1e5b9d6cb077035",
+        "group_id": "DZHF20002875",
+        "split": "train",
+        "kept": 291,
+        "removed": {
+          "same_as_standard": 324,
+          "anonymization_marker": 13,
+          "fewer_than_two_words": 14,
+          "exact_duplicate": 4
+        }
+      },
+      {
+        "file": "DZJD21002093.json",
+        "sha256": "ef7c962608ea13a9359d700db0f9f3271890b2a7d64c00d71e35e62cd91b971b",
+        "group_id": "DZJD21002093",
+        "split": "train",
+        "kept": 163,
+        "removed": {
+          "same_as_standard": 289,
+          "fewer_than_two_words": 14,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZHF20000067.json",
+        "sha256": "e7279bc7313e1c198fcecf4065eef88db617bf66f247d64ccaa172701b59963d",
+        "group_id": "DZHF20000067",
+        "split": "train",
+        "kept": 112,
+        "removed": {
+          "same_as_standard": 473,
+          "anonymization_marker": 13,
+          "fewer_than_two_words": 3
+        }
+      },
+      {
+        "file": "DZHF20002801.json",
+        "sha256": "45d1b9d75d73d24f03965e13bd43746d244a53be9bb21af3ef3f1d6adbca866f",
+        "group_id": "DZHF20002801",
+        "split": "train",
+        "kept": 246,
+        "removed": {
+          "anonymization_marker": 10,
+          "same_as_standard": 373,
+          "fewer_than_two_words": 28,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZHF20000403.json",
+        "sha256": "32710698574466cc43f5f125e946db599cf1fbaa21283db7170fd160dd6041bf",
+        "group_id": "DZHF20000403",
+        "split": "train",
+        "kept": 172,
+        "removed": {
+          "same_as_standard": 143,
+          "anonymization_marker": 10,
+          "fewer_than_two_words": 16
+        }
+      },
+      {
+        "file": "DZHF20001265.json",
+        "sha256": "e37499a24e9d834857a53ac87ba1d90b8b17c3058aaf8e998745f30fce8c96dd",
+        "group_id": "DZHF20001265",
+        "split": "train",
+        "kept": 220,
+        "removed": {
+          "same_as_standard": 603,
+          "fewer_than_two_words": 13,
+          "anonymization_marker": 1
+        }
+      },
+      {
+        "file": "DZJD20000491.json",
+        "sha256": "957c9fd88a2a653d7ec81b8209279fb403e67681233e913b251c7f19af540fa5",
+        "group_id": "DZJD20000491",
+        "split": "train",
+        "kept": 330,
+        "removed": {
+          "same_as_standard": 122,
+          "fewer_than_two_words": 16,
+          "anonymization_marker": 37,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZJD20000973.json",
+        "sha256": "b6cce7854c1f5c8f0150e7700a399e104f86e784dd5b3534bc00c26ef28cc73d",
+        "group_id": "DZJD20000973",
+        "split": "train",
+        "kept": 290,
+        "removed": {
+          "fewer_than_two_words": 14,
+          "same_as_standard": 211,
+          "anonymization_marker": 1
+        }
+      },
+      {
+        "file": "DZJD20001355.json",
+        "sha256": "768453416b85b9cbc355596133821fe2d7b883698a94519de1629e13963d5dec",
+        "group_id": "DZJD20001355",
+        "split": "train",
+        "kept": 286,
+        "removed": {
+          "same_as_standard": 204,
+          "anonymization_marker": 45,
+          "fewer_than_two_words": 8,
+          "exact_duplicate": 6
+        }
+      },
+      {
+        "file": "DZJD20000496.json",
+        "sha256": "bcd52874904dd8cdaf42c5e9fc0cbfc58d88a13c5ae75fe8185ce900f125e250",
+        "group_id": "DZJD20000496",
+        "split": "train",
+        "kept": 451,
+        "removed": {
+          "same_as_standard": 83,
+          "exact_duplicate": 2,
+          "anonymization_marker": 12,
+          "fewer_than_two_words": 8
+        }
+      },
+      {
+        "file": "DZES20000217.json",
+        "sha256": "6664d743c24fbae714ff47b2fc70a79d71b069bbc8a64ac68456af5c162ac30f",
+        "group_id": "DZES20000217",
+        "split": "train",
+        "kept": 344,
+        "removed": {
+          "same_as_standard": 26,
+          "anonymization_marker": 11,
+          "fewer_than_two_words": 2
+        }
+      },
+      {
+        "file": "DZJD20000926.json",
+        "sha256": "3fdaddf4bd584a549966411e7a3feee4b1d79b217c9fd89a0cd73ba4d629af55",
+        "group_id": "DZJD20000926",
+        "split": "train",
+        "kept": 111,
+        "removed": {
+          "same_as_standard": 377,
+          "anonymization_marker": 67,
+          "fewer_than_two_words": 8,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20002498.json",
+        "sha256": "a8e48b941761843affbc8908d0267c1ae5c43f1cc46e479ff53c274b35d04d9c",
+        "group_id": "DZHF20002498",
+        "split": "train",
+        "kept": 323,
+        "removed": {
+          "same_as_standard": 226,
+          "fewer_than_two_words": 58,
+          "anonymization_marker": 10
+        }
+      },
+      {
+        "file": "DZJD20001139.json",
+        "sha256": "c343ffdd1daecd975811b4fd691985ec4411416756fcef0885c1c858b4211eba",
+        "group_id": "DZJD20001139",
+        "split": "train",
+        "kept": 339,
+        "removed": {
+          "same_as_standard": 318,
+          "fewer_than_two_words": 15,
+          "anonymization_marker": 16,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZJD20000277.json",
+        "sha256": "6fba0d16ecd4d598a5b8225dbbc8b897ecdc39ff17bf90d694d297bfa8906766",
+        "group_id": "DZJD20000277",
+        "split": "train",
+        "kept": 101,
+        "removed": {
+          "same_as_standard": 102,
+          "anonymization_marker": 10,
+          "exact_duplicate": 1,
+          "fewer_than_two_words": 6
+        }
+      },
+      {
+        "file": "DZES21001323.json",
+        "sha256": "0fb5efd55c2e2c97d8bf91ee858fae6ebf61b281c95e28513b539c5ac2404186",
+        "group_id": "DZES21001323",
+        "split": "train",
+        "kept": 52,
+        "removed": {
+          "same_as_standard": 283,
+          "fewer_than_two_words": 3,
+          "anonymization_marker": 7,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZHF20001066.json",
+        "sha256": "f0f829423d3dcb68b6c882d8ce499d6c6ae7e90bbbaa4b050b0d2a18fb27c40a",
+        "group_id": "DZHF20001066",
+        "split": "train",
+        "kept": 337,
+        "removed": {
+          "same_as_standard": 226,
+          "anonymization_marker": 60,
+          "exact_duplicate": 3,
+          "fewer_than_two_words": 9
+        }
+      },
+      {
+        "file": "DZJD20001202.json",
+        "sha256": "ad5e929178f74b6d0658782d43ba8733a004fc8710a940d5ac7f3b7391cc6346",
+        "group_id": "DZJD20001202",
+        "split": "train",
+        "kept": 154,
+        "removed": {
+          "same_as_standard": 466,
+          "anonymization_marker": 15,
+          "fewer_than_two_words": 12
+        }
+      },
+      {
+        "file": "DZHF20001447.json",
+        "sha256": "8073193107c84813995055bd90f84204c12f13ff5fc64fe5d75b899f062bca65",
+        "group_id": "DZHF20001447",
+        "split": "train",
+        "kept": 153,
+        "removed": {
+          "same_as_standard": 278,
+          "anonymization_marker": 52,
+          "exact_duplicate": 1,
+          "fewer_than_two_words": 2
+        }
+      },
+      {
+        "file": "DZHF20000024.json",
+        "sha256": "2e8425e77dca3c1625c25348b5f0d0e7c3bb5e2a3ee26846f2be6fec1b20810c",
+        "group_id": "DZHF20000024",
+        "split": "train",
+        "kept": 53,
+        "removed": {
+          "same_as_standard": 39,
+          "fewer_than_two_words": 2
+        }
+      },
+      {
+        "file": "DZJD20000458.json",
+        "sha256": "dc1f0fcc7873f805018fdea496e70963ec77a97df465d6e010d3f130d97a5426",
+        "group_id": "DZJD20000458",
+        "split": "train",
+        "kept": 142,
+        "removed": {
+          "same_as_standard": 321,
+          "fewer_than_two_words": 9,
+          "anonymization_marker": 3
+        }
+      },
+      {
+        "file": "DZHF20000006.json",
+        "sha256": "b65a3d19dbec0f930b1a29b654a0293306170005ad1b6b1cb1b53d2367a2fa09",
+        "group_id": "DZHF20000006",
+        "split": "train",
+        "kept": 17,
+        "removed": {
+          "same_as_standard": 752,
+          "anonymization_marker": 22,
+          "fewer_than_two_words": 2
+        }
+      },
+      {
+        "file": "DZHF20001157.json",
+        "sha256": "bd146694a790e04b9f62a5c080d973d1be918d8aedc00af00952a18d8f833094",
+        "group_id": "DZHF20001157",
+        "split": "train",
+        "kept": 233,
+        "removed": {
+          "same_as_standard": 387,
+          "fewer_than_two_words": 13,
+          "exact_duplicate": 1,
+          "anonymization_marker": 5
+        }
+      },
+      {
+        "file": "DZJD20000839.json",
+        "sha256": "8239f0cc13185c9a1c48c2adbba63eb13dd9d347f5389816ed453fe82484aec5",
+        "group_id": "DZJD20000839",
+        "split": "train",
+        "kept": 318,
+        "removed": {
+          "same_as_standard": 155,
+          "fewer_than_two_words": 6,
+          "anonymization_marker": 4,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZJD20001233.json",
+        "sha256": "a9da873f6a719feaccfabd41e8a5df44d756a1e938fbacd606b9e831ac2a7d03",
+        "group_id": "DZJD20001233",
+        "split": "train",
+        "kept": 379,
+        "removed": {
+          "same_as_standard": 171,
+          "fewer_than_two_words": 9,
+          "anonymization_marker": 3
+        }
+      },
+      {
+        "file": "DZHF20000559.json",
+        "sha256": "768962bbf5bf28567fbd08cb58a2b19e6832f17547e7d519688c2ad68a2ed657",
+        "group_id": "DZHF20000559",
+        "split": "train",
+        "kept": 345,
+        "removed": {
+          "same_as_standard": 260,
+          "fewer_than_two_words": 7,
+          "exact_duplicate": 1,
+          "anonymization_marker": 8
+        }
+      },
+      {
+        "file": "DZJD21002065.json",
+        "sha256": "6999e49d48d7aa3512fa048972b7490400f613725213e7845e8f5299eaf57ae7",
+        "group_id": "DZJD21002065",
+        "split": "train",
+        "kept": 185,
+        "removed": {
+          "same_as_standard": 334,
+          "fewer_than_two_words": 36,
+          "exact_duplicate": 8,
+          "anonymization_marker": 11
+        }
+      },
+      {
+        "file": "DZHF20002043.json",
+        "sha256": "ca29e1ae1757f04a432d61b6061463180f466aa8f153f096fbdc96648fc33172",
+        "group_id": "DZHF20002043",
+        "split": "train",
+        "kept": 170,
+        "removed": {
+          "fewer_than_two_words": 13,
+          "same_as_standard": 152,
+          "anonymization_marker": 1
+        }
+      },
+      {
+        "file": "DZES20000453.json",
+        "sha256": "de8fb379f5bb4f295be06cc18651dbf2f4bfd1d428b0c7d0bcadcc4b6f21c2af",
+        "group_id": "DZES20000453",
+        "split": "train",
+        "kept": 437,
+        "removed": {
+          "same_as_standard": 43,
+          "fewer_than_two_words": 16,
+          "anonymization_marker": 9,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZES20001094.json",
+        "sha256": "4e22624353d40f2341ccad75163dd9155de119d0a3c788062355bbe76ff7611d",
+        "group_id": "DZES20001094",
+        "split": "train",
+        "kept": 139,
+        "removed": {
+          "same_as_standard": 97,
+          "fewer_than_two_words": 6,
+          "anonymization_marker": 16,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZJD20000968.json",
+        "sha256": "40da81cfb923394713e7f976a8941f0426cf58805b859a4f7c4418d49fc7c0e7",
+        "group_id": "DZJD20000968",
+        "split": "train",
+        "kept": 73,
+        "removed": {
+          "same_as_standard": 451,
+          "anonymization_marker": 4,
+          "fewer_than_two_words": 6,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20001119.json",
+        "sha256": "0aa8c293db28e528b0c112c3287c3966c0d9c344dd33c3917cdb92eed3574c06",
+        "group_id": "DZHF20001119",
+        "split": "train",
+        "kept": 378,
+        "removed": {
+          "same_as_standard": 185,
+          "anonymization_marker": 6,
+          "exact_duplicate": 3,
+          "fewer_than_two_words": 16
+        }
+      },
+      {
+        "file": "DZHF20000178.json",
+        "sha256": "3c3be4338151836ff89be569e10d3208fb1ba58a610809da14d7a52a36bf474d",
+        "group_id": "DZHF20000178",
+        "split": "train",
+        "kept": 94,
+        "removed": {
+          "same_as_standard": 568,
+          "fewer_than_two_words": 5,
+          "anonymization_marker": 33,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZJD20001366.json",
+        "sha256": "58ed65017bf74f13905ef753d3f3a258933f610b8d013c64eee7d4655d1f016c",
+        "group_id": "DZJD20001366",
+        "split": "train",
+        "kept": 283,
+        "removed": {
+          "same_as_standard": 220,
+          "anonymization_marker": 8,
+          "fewer_than_two_words": 12
+        }
+      },
+      {
+        "file": "DZJD20000271.json",
+        "sha256": "225edf753551af37fa52b83117b1852de904d54c03f798ea987d293b7671113f",
+        "group_id": "DZJD20000271",
+        "split": "train",
+        "kept": 364,
+        "removed": {
+          "same_as_standard": 236,
+          "fewer_than_two_words": 16,
+          "exact_duplicate": 5,
+          "anonymization_marker": 11
+        }
+      },
+      {
+        "file": "DZES21001466.json",
+        "sha256": "79e330195c850b3daed238e90c360a5016861b790bdb6c0517cef35272da3cba",
+        "group_id": "DZES21001466",
+        "split": "train",
+        "kept": 57,
+        "removed": {
+          "same_as_standard": 241,
+          "anonymization_marker": 33,
+          "fewer_than_two_words": 1,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20000725.json",
+        "sha256": "3b4c267ff4e9de3e7b83a1483ec019d3691f25b33feb13490ba3d7382f2ef7a2",
+        "group_id": "DZHF20000725",
+        "split": "train",
+        "kept": 58,
+        "removed": {
+          "fewer_than_two_words": 3,
+          "same_as_standard": 114,
+          "anonymization_marker": 12
+        }
+      },
+      {
+        "file": "DZHF20002418.json",
+        "sha256": "14ff151451fc6956597345fb486cab830018f10fc086eb498fefdceb44e99eeb",
+        "group_id": "DZHF20002418",
+        "split": "train",
+        "kept": 56,
+        "removed": {
+          "same_as_standard": 331,
+          "anonymization_marker": 37,
+          "fewer_than_two_words": 9,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZJD20000553.json",
+        "sha256": "afdeae78c3ecb73c471379172d3cd0695960407183b31cc22d838a13afe3bf65",
+        "group_id": "DZJD20000553",
+        "split": "train",
+        "kept": 222,
+        "removed": {
+          "same_as_standard": 340,
+          "fewer_than_two_words": 18,
+          "anonymization_marker": 13,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZHF20002311.json",
+        "sha256": "bcbd9663a965939b6e960cced56bef0ec5b0a73b24a72e956e434a41fce2c15b",
+        "group_id": "DZHF20002311",
+        "split": "train",
+        "kept": 111,
+        "removed": {
+          "same_as_standard": 56,
+          "fewer_than_two_words": 1
+        }
+      },
+      {
+        "file": "DZJD20000545.json",
+        "sha256": "dd3bba267dee50d7c5f8e1af5da80363e7ca3b0fbaa92f9e86ec92557647d0b9",
+        "group_id": "DZJD20000545",
+        "split": "train",
+        "kept": 368,
+        "removed": {
+          "fewer_than_two_words": 6,
+          "anonymization_marker": 57,
+          "same_as_standard": 151,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZJD20001154.json",
+        "sha256": "cd4e2696af9d5916759627caf8c433aa2dc73a456f24251aa6e36d44aa489dfd",
+        "group_id": "DZJD20001154",
+        "split": "train",
+        "kept": 107,
+        "removed": {
+          "same_as_standard": 386,
+          "anonymization_marker": 43,
+          "fewer_than_two_words": 3,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20002916.json",
+        "sha256": "603ed3e360b05452e93a1643bbed240a899230c5858e00e62e1bf57e36c914fe",
+        "group_id": "DZHF20002916",
+        "split": "train",
+        "kept": 46,
+        "removed": {
+          "same_as_standard": 187,
+          "exact_duplicate": 2,
+          "fewer_than_two_words": 4
+        }
+      },
+      {
+        "file": "DZHF20001441.json",
+        "sha256": "e7e0918df3dc788e858a6eeb727de257bb37850c2dad17351fb7494a9996c604",
+        "group_id": "DZHF20001441",
+        "split": "train",
+        "kept": 191,
+        "removed": {
+          "same_as_standard": 336,
+          "anonymization_marker": 62,
+          "fewer_than_two_words": 8,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZES20000105.json",
+        "sha256": "472200e1775f16b759ff0fb8f8f392d7442db113a9f19cd3e0c529af911c20c5",
+        "group_id": "DZES20000105",
+        "split": "train",
+        "kept": 472,
+        "removed": {
+          "anonymization_marker": 3,
+          "fewer_than_two_words": 11,
+          "same_as_standard": 98,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20001960.json",
+        "sha256": "b6667d82051dcde5194852c707a8b3b62fd741910ae7e9dcdc77dfd9a6f39834",
+        "group_id": "DZHF20001960",
+        "split": "train",
+        "kept": 214,
+        "removed": {
+          "same_as_standard": 274,
+          "anonymization_marker": 25,
+          "fewer_than_two_words": 2,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZES20000093.json",
+        "sha256": "353138686d45a19059692607a98f89414bd20ff541fee27518491be53f66c3ec",
+        "group_id": "DZES20000093",
+        "split": "train",
+        "kept": 212,
+        "removed": {
+          "same_as_standard": 104,
+          "anonymization_marker": 21,
+          "fewer_than_two_words": 8
+        }
+      },
+      {
+        "file": "DZES20000103.json",
+        "sha256": "69a98e15be6000aefa43db575a6bd18f1becb34c066ee2fc8d43e09f034cce71",
+        "group_id": "DZES20000103",
+        "split": "train",
+        "kept": 477,
+        "removed": {
+          "same_as_standard": 28,
+          "anonymization_marker": 4,
+          "fewer_than_two_words": 2,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20001603.json",
+        "sha256": "38e59bda3a5fb3adb2e7ef23f36375680cf9b7969565c49b5414ebbaba1472d7",
+        "group_id": "DZHF20001603",
+        "split": "train",
+        "kept": 247,
+        "removed": {
+          "same_as_standard": 148,
+          "fewer_than_two_words": 10,
+          "anonymization_marker": 2
+        }
+      },
+      {
+        "file": "DZES20000133.json",
+        "sha256": "abe85687050499bacb7f3cfe63ca73ae4c1596af3dfec748dde452c677dadaa2",
+        "group_id": "DZES20000133",
+        "split": "train",
+        "kept": 344,
+        "removed": {
+          "fewer_than_two_words": 8,
+          "same_as_standard": 2
+        }
+      },
+      {
+        "file": "DZJD21002177.json",
+        "sha256": "493a228e64e53a1dd6c8fdfca197a2fc837d4b8f1ed01d5c7d319362cbc7aa4a",
+        "group_id": "DZJD21002177",
+        "split": "train",
+        "kept": 130,
+        "removed": {
+          "same_as_standard": 366,
+          "anonymization_marker": 6,
+          "fewer_than_two_words": 9,
+          "exact_duplicate": 3
+        }
+      },
+      {
+        "file": "DZJD20000029.json",
+        "sha256": "bbf462bbf32295e5ca3639d4c6cbff174d842442849f4a6179673f81d6251af9",
+        "group_id": "DZJD20000029",
+        "split": "train",
+        "kept": 301,
+        "removed": {
+          "same_as_standard": 14,
+          "fewer_than_two_words": 3,
+          "anonymization_marker": 4
+        }
+      },
+      {
+        "file": "DZJD20000258.json",
+        "sha256": "4f630f24bf2b380f9f18fd14e9130aa5ac78f5a887f4333cb918050ceb9f5bbf",
+        "group_id": "DZJD20000258",
+        "split": "train",
+        "kept": 346,
+        "removed": {
+          "same_as_standard": 180,
+          "anonymization_marker": 7,
+          "exact_duplicate": 3,
+          "fewer_than_two_words": 9
+        }
+      },
+      {
+        "file": "DZHF20001221.json",
+        "sha256": "52572b2666bcd4c28162f4b9a5d7a1a58108b480b163b857a60469a639995302",
+        "group_id": "DZHF20001221",
+        "split": "train",
+        "kept": 519,
+        "removed": {
+          "same_as_standard": 49,
+          "fewer_than_two_words": 2
+        }
+      },
+      {
+        "file": "DZJD20001719.json",
+        "sha256": "ff4878af839bbdb525f27a8e2bcaf5ce84b16d9a2c5c8ae5dfbb2c48d404a052",
+        "group_id": "DZJD20001719",
+        "split": "train",
+        "kept": 114,
+        "removed": {
+          "same_as_standard": 497,
+          "anonymization_marker": 10,
+          "fewer_than_two_words": 3
+        }
+      },
+      {
+        "file": "DZES20000124.json",
+        "sha256": "48500c6a1f7f454aa3d6b6e7017ba5f4201b656dbc306f00f8212cfd91943100",
+        "group_id": "DZES20000124",
+        "split": "train",
+        "kept": 450,
+        "removed": {
+          "same_as_standard": 74,
+          "fewer_than_two_words": 4,
+          "exact_duplicate": 1,
+          "anonymization_marker": 1
+        }
+      },
+      {
+        "file": "DZHF20002152.json",
+        "sha256": "60f3f6d073df87ba1672315541bf28247db73c5c327d95b7c4e01c69fbdc79a2",
+        "group_id": "DZHF20002152",
+        "split": "train",
+        "kept": 115,
+        "removed": {
+          "same_as_standard": 287,
+          "anonymization_marker": 20,
+          "fewer_than_two_words": 1
+        }
+      },
+      {
+        "file": "DZJD20000823.json",
+        "sha256": "0a126e52ef97aefaf0c05cd71cb43577604bdf097674775e250fc359346f909c",
+        "group_id": "DZJD20000823",
+        "split": "train",
+        "kept": 191,
+        "removed": {
+          "same_as_standard": 263,
+          "fewer_than_two_words": 9,
+          "anonymization_marker": 3,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZES20000485.json",
+        "sha256": "e9027a998b353752b6bfe5ba1c0ec2091267f642a569b8562e715610c1bd0409",
+        "group_id": "DZES20000485",
+        "split": "train",
+        "kept": 309,
+        "removed": {
+          "same_as_standard": 302,
+          "fewer_than_two_words": 6,
+          "exact_duplicate": 6,
+          "anonymization_marker": 12
+        }
+      },
+      {
+        "file": "DZJD21002036.json",
+        "sha256": "f91787f39cc04c025917893e2cddec83930e850523350aca50a444d26debc7c0",
+        "group_id": "DZJD21002036",
+        "split": "train",
+        "kept": 224,
+        "removed": {
+          "same_as_standard": 263,
+          "fewer_than_two_words": 14,
+          "exact_duplicate": 8,
+          "anonymization_marker": 2
+        }
+      },
+      {
+        "file": "DZHF20002195.json",
+        "sha256": "b8864f4897b7efad54fbf50c143bc165007ece56ee8e60cd8b24e718927626aa",
+        "group_id": "DZHF20002195",
+        "split": "train",
+        "kept": 576,
+        "removed": {
+          "fewer_than_two_words": 81,
+          "exact_duplicate": 7,
+          "same_as_standard": 141,
+          "anonymization_marker": 4
+        }
+      },
+      {
+        "file": "DZHF20000558.json",
+        "sha256": "75eba34ac054488ea1a09428e8bf981f56b5154031af18e557d71a646df411ff",
+        "group_id": "DZHF20000558",
+        "split": "train",
+        "kept": 378,
+        "removed": {
+          "same_as_standard": 258,
+          "anonymization_marker": 11,
+          "fewer_than_two_words": 8,
+          "exact_duplicate": 4
+        }
+      },
+      {
+        "file": "DZJD20000418.json",
+        "sha256": "cedf8681206bfcebdd5033b8e326828d8b0ef4b1d0a5d6ce9fb4248db8ec7272",
+        "group_id": "DZJD20000418",
+        "split": "train",
+        "kept": 302,
+        "removed": {
+          "same_as_standard": 80,
+          "anonymization_marker": 28,
+          "fewer_than_two_words": 7,
+          "exact_duplicate": 7
+        }
+      },
+      {
+        "file": "DZES20000572.json",
+        "sha256": "a7486bed4c93481996e2e3462c7a381d959e7eaa989866bbf8e068e75f89fcd1",
+        "group_id": "DZES20000572",
+        "split": "train",
+        "kept": 232,
+        "removed": {
+          "same_as_standard": 237,
+          "fewer_than_two_words": 5,
+          "anonymization_marker": 8,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZJD20000402.json",
+        "sha256": "4af8adaf6e6917accede721052b70060a20048801c51ddb0df58270b60ee9af7",
+        "group_id": "DZJD20000402",
+        "split": "train",
+        "kept": 263,
+        "removed": {
+          "same_as_standard": 329,
+          "anonymization_marker": 3,
+          "fewer_than_two_words": 13,
+          "exact_duplicate": 4
+        }
+      },
+      {
+        "file": "DZHF20001226.json",
+        "sha256": "9c0811d405b29f1bbac0e6bb87380dfd1a6f4f62106cccd55831f8fee0ef81de",
+        "group_id": "DZHF20001226",
+        "split": "train",
+        "kept": 290,
+        "removed": {
+          "same_as_standard": 134,
+          "anonymization_marker": 8
+        }
+      },
+      {
+        "file": "DZJD20000910.json",
+        "sha256": "01be9169bee02f19501fc0254deecac5a8f3b1f4132a98c1e1c0b64ab5fc2582",
+        "group_id": "DZJD20000910",
+        "split": "train",
+        "kept": 463,
+        "removed": {
+          "same_as_standard": 257,
+          "anonymization_marker": 38,
+          "fewer_than_two_words": 35,
+          "exact_duplicate": 8
+        }
+      },
+      {
+        "file": "DZES21001587.json",
+        "sha256": "c69a484da16bebf59766fc0da137c548bc9b6fd620f2bed830d6156a7d9cd1df",
+        "group_id": "DZES21001587",
+        "split": "train",
+        "kept": 39,
+        "removed": {
+          "same_as_standard": 803,
+          "anonymization_marker": 47
+        }
+      },
+      {
+        "file": "DZHF20002625.json",
+        "sha256": "ead20cc2f3ca313cdb88e3005a1de0d77a2b6edeb8d3e3ba19b795dd9f41b183",
+        "group_id": "DZHF20002625",
+        "split": "train",
+        "kept": 324,
+        "removed": {
+          "anonymization_marker": 70,
+          "same_as_standard": 209,
+          "fewer_than_two_words": 10,
+          "exact_duplicate": 8
+        }
+      },
+      {
+        "file": "DZJD20000808.json",
+        "sha256": "348d484e821d2c4e0cbd93c0d298c916706ae31cadd44b7c8b565aec0bd47ca4",
+        "group_id": "DZJD20000808",
+        "split": "train",
+        "kept": 208,
+        "removed": {
+          "same_as_standard": 95,
+          "fewer_than_two_words": 9
+        }
+      },
+      {
+        "file": "DZHF20002749.json",
+        "sha256": "340f026807f1f9cdd2a9e4b3d85011f2f3ffd82f3773598f8b0192ab18b6dd85",
+        "group_id": "DZHF20002749",
+        "split": "train",
+        "kept": 345,
+        "removed": {
+          "same_as_standard": 174,
+          "fewer_than_two_words": 13
+        }
+      },
+      {
+        "file": "DZHF20000895.json",
+        "sha256": "eef920b47f8bb2ab530f156b4222143349df0e892ac7695632e8c5f73beb2f19",
+        "group_id": "DZHF20000895",
+        "split": "train",
+        "kept": 292,
+        "removed": {
+          "same_as_standard": 125,
+          "fewer_than_two_words": 9,
+          "anonymization_marker": 6
+        }
+      },
+      {
+        "file": "DZES21001588.json",
+        "sha256": "5094225405119ad939f3c3146aa85b90134e1effd2307579f937add07043196d",
+        "group_id": "DZES21001588",
+        "split": "train",
+        "kept": 57,
+        "removed": {
+          "same_as_standard": 619,
+          "anonymization_marker": 50,
+          "fewer_than_two_words": 5
+        }
+      },
+      {
+        "file": "DZJD20001552.json",
+        "sha256": "d9a5c8831d866e6c1ae7eaa4bb5a5da48a4b9a99d9c9ddf06131a81ab62e6180",
+        "group_id": "DZJD20001552",
+        "split": "train",
+        "kept": 83,
+        "removed": {
+          "same_as_standard": 103,
+          "anonymization_marker": 1
+        }
+      },
+      {
+        "file": "DZHF20001887.json",
+        "sha256": "432ed75e5e2ed52b11b6a69c7fa75054d010ab83f915f5bf88b2c2e4facee721",
+        "group_id": "DZHF20001887",
+        "split": "train",
+        "kept": 157,
+        "removed": {
+          "same_as_standard": 667,
+          "anonymization_marker": 49,
+          "fewer_than_two_words": 12,
+          "exact_duplicate": 3
+        }
+      },
+      {
+        "file": "DZJD20000525.json",
+        "sha256": "66215a1d75040553b9a154bec169e283b4035bca77dd765ea52960b29f863c82",
+        "group_id": "DZJD20000525",
+        "split": "train",
+        "kept": 113,
+        "removed": {
+          "fewer_than_two_words": 15,
+          "same_as_standard": 389,
+          "anonymization_marker": 11,
+          "exact_duplicate": 3
+        }
+      },
+      {
+        "file": "DZHF20001511.json",
+        "sha256": "86f492ec579e13a180e141412d581ceb461091f87cb7750a6a1e8bcbed505516",
+        "group_id": "DZHF20001511",
+        "split": "train",
+        "kept": 458,
+        "removed": {
+          "same_as_standard": 192,
+          "fewer_than_two_words": 14,
+          "anonymization_marker": 6,
+          "exact_duplicate": 6
+        }
+      },
+      {
+        "file": "DZES20000750.json",
+        "sha256": "fcb35753e49535ec564757170343afe30a79563d1f140e9773dc498460d73446",
+        "group_id": "DZES20000750",
+        "split": "train",
+        "kept": 243,
+        "removed": {
+          "same_as_standard": 447,
+          "fewer_than_two_words": 11,
+          "anonymization_marker": 6,
+          "exact_duplicate": 3
+        }
+      },
+      {
+        "file": "DZJD20000107.json",
+        "sha256": "2e73ed70b08edd1a23ae1f6c72db6f39b418526f0c61094473852664471d85ac",
+        "group_id": "DZJD20000107",
+        "split": "train",
+        "kept": 459,
+        "removed": {
+          "same_as_standard": 78,
+          "fewer_than_two_words": 15,
+          "anonymization_marker": 1,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZJD20001766.json",
+        "sha256": "2d1c1530db629d47ebd5b91c415ecd76b307a7c5fa2c9b4a275647ebbf1dd95e",
+        "group_id": "DZJD20001766",
+        "split": "train",
+        "kept": 153,
+        "removed": {
+          "same_as_standard": 304,
+          "fewer_than_two_words": 8,
+          "exact_duplicate": 4
+        }
+      },
+      {
+        "file": "DZES21001790.json",
+        "sha256": "b0f5bf36930838dc8c1426f55cb09ba5c78323d917ed3fae54771b69c66a218d",
+        "group_id": "DZES21001790",
+        "split": "train",
+        "kept": 529,
+        "removed": {
+          "same_as_standard": 247,
+          "fewer_than_two_words": 39,
+          "exact_duplicate": 6,
+          "anonymization_marker": 8
+        }
+      },
+      {
+        "file": "DZES20000481.json",
+        "sha256": "e1a747f1ea528624bfcf79915762775d4ab4f3725ef47d7b2cfbfe2e23fb0afe",
+        "group_id": "DZES20000481",
+        "split": "train",
+        "kept": 467,
+        "removed": {
+          "same_as_standard": 216,
+          "fewer_than_two_words": 38,
+          "anonymization_marker": 7,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZHF20000287.json",
+        "sha256": "dafa43b35efa1d595839e3b756ccafc4606b337ced359779ecaefc99c5781820",
+        "group_id": "DZHF20000287",
+        "split": "train",
+        "kept": 238,
+        "removed": {
+          "same_as_standard": 438,
+          "fewer_than_two_words": 10,
+          "anonymization_marker": 12,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZJD20000201.json",
+        "sha256": "cbb3c34f2a864ad42302de3afce084ce46a6918e067cf26e876b4986b8b9a764",
+        "group_id": "DZJD20000201",
+        "split": "train",
+        "kept": 137,
+        "removed": {
+          "same_as_standard": 174,
+          "anonymization_marker": 20,
+          "exact_duplicate": 1,
+          "fewer_than_two_words": 9
+        }
+      },
+      {
+        "file": "DZHF20000098.json",
+        "sha256": "4dd7aed98e6523618b17a9436bab1f1ba1ecab7f73383b589a3b981eb9dc5076",
+        "group_id": "DZHF20000098",
+        "split": "train",
+        "kept": 207,
+        "removed": {
+          "same_as_standard": 605,
+          "anonymization_marker": 27,
+          "fewer_than_two_words": 26,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZHF20002736.json",
+        "sha256": "71423ec1ff8f9d96797ee29e399fa933fc8a562cf6ca8b7c1d74606466243db0",
+        "group_id": "DZHF20002736",
+        "split": "train",
+        "kept": 521,
+        "removed": {
+          "fewer_than_two_words": 25,
+          "same_as_standard": 365,
+          "anonymization_marker": 105,
+          "exact_duplicate": 8
+        }
+      },
+      {
+        "file": "DZHF20002477.json",
+        "sha256": "bcf1eeac58575b3ff900c91b2f9719674f6296d0b456d9ab26c536235c925749",
+        "group_id": "DZHF20002477",
+        "split": "train",
+        "kept": 175,
+        "removed": {
+          "same_as_standard": 477,
+          "anonymization_marker": 84,
+          "fewer_than_two_words": 25,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZJD20001812.json",
+        "sha256": "6ef940e6018c3540081cd49e09f8a0c8f7e7b8848e19c8af4ff38af9132e672e",
+        "group_id": "DZJD20001812",
+        "split": "train",
+        "kept": 337,
+        "removed": {
+          "same_as_standard": 75,
+          "anonymization_marker": 22,
+          "exact_duplicate": 3,
+          "fewer_than_two_words": 1
+        }
+      },
+      {
+        "file": "DZES20001136.json",
+        "sha256": "4a4b4d6b82efe6d7dca3cf7b069039449d093d8e65c03aa421d4ab6d00026c18",
+        "group_id": "DZES20001136",
+        "split": "train",
+        "kept": 187,
+        "removed": {
+          "same_as_standard": 84,
+          "exact_duplicate": 7,
+          "anonymization_marker": 12,
+          "fewer_than_two_words": 3
+        }
+      },
+      {
+        "file": "DZHF20000388.json",
+        "sha256": "1238dd05fd01d52c9987049739cf986c75ea6abb180bb8f907fb34cb6d80dfac",
+        "group_id": "DZHF20000388",
+        "split": "train",
+        "kept": 207,
+        "removed": {
+          "fewer_than_two_words": 11,
+          "same_as_standard": 540,
+          "anonymization_marker": 39,
+          "exact_duplicate": 6
+        }
+      },
+      {
+        "file": "DZES20000513.json",
+        "sha256": "4b458ee97c5c551ebbb17cb3510d6997253e8333697ac5838b0acd7b96c39f0d",
+        "group_id": "DZES20000513",
+        "split": "train",
+        "kept": 181,
+        "removed": {
+          "same_as_standard": 687,
+          "anonymization_marker": 26,
+          "fewer_than_two_words": 4,
+          "exact_duplicate": 4
+        }
+      },
+      {
+        "file": "DZJD20001034.json",
+        "sha256": "d0bff8d4035333a078325c4b8479bc1ca3d743a361e7d43b89dc0d5a59b4ec07",
+        "group_id": "DZJD20001034",
+        "split": "train",
+        "kept": 374,
+        "removed": {
+          "same_as_standard": 203,
+          "fewer_than_two_words": 30,
+          "anonymization_marker": 6
+        }
+      },
+      {
+        "file": "DZJD20001768.json",
+        "sha256": "6269dbf3ff645ce0c2a7dde6e7d84b12db3f51f28fab86873ee3b050c633912b",
+        "group_id": "DZJD20001768",
+        "split": "train",
+        "kept": 213,
+        "removed": {
+          "same_as_standard": 209,
+          "anonymization_marker": 64,
+          "exact_duplicate": 4
+        }
+      },
+      {
+        "file": "DZHF20001245.json",
+        "sha256": "30a210946aae85408e7a894f00bf34c7af779e5805b236a7d1b2ae1b374468e2",
+        "group_id": "DZHF20001245",
+        "split": "train",
+        "kept": 159,
+        "removed": {
+          "same_as_standard": 424,
+          "fewer_than_two_words": 6,
+          "anonymization_marker": 34
+        }
+      },
+      {
+        "file": "DZJD21002157.json",
+        "sha256": "515a5e8d0bdd26d47baa6ea673e7024035dfd5d83a570a9a134412861164e917",
+        "group_id": "DZJD21002157",
+        "split": "train",
+        "kept": 74,
+        "removed": {
+          "same_as_standard": 501,
+          "anonymization_marker": 1,
+          "fewer_than_two_words": 13,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZJD20001028.json",
+        "sha256": "a0a7999324138d0935f4440e7a4abd644afc36b0bcf8d97ad6ae3903b745674d",
+        "group_id": "DZJD20001028",
+        "split": "train",
+        "kept": 234,
+        "removed": {
+          "fewer_than_two_words": 9,
+          "same_as_standard": 377,
+          "anonymization_marker": 11,
+          "exact_duplicate": 6
+        }
+      },
+      {
+        "file": "DZES20000753.json",
+        "sha256": "622185f7a9d3355f5e5fb1a38e4fb45c859556a266cbe89348e312ba8f8ec664",
+        "group_id": "DZES20000753",
+        "split": "train",
+        "kept": 121,
+        "removed": {
+          "same_as_standard": 515,
+          "anonymization_marker": 16,
+          "fewer_than_two_words": 13
+        }
+      },
+      {
+        "file": "DZES20000649.json",
+        "sha256": "5f6615a3825fb9658079f8b763e263ecbe330337ae98e863bd198d013f839f5f",
+        "group_id": "DZES20000649",
+        "split": "train",
+        "kept": 117,
+        "removed": {
+          "same_as_standard": 497,
+          "anonymization_marker": 36,
+          "exact_duplicate": 1,
+          "fewer_than_two_words": 4
+        }
+      },
+      {
+        "file": "DZJD20001532.json",
+        "sha256": "8f73f3ba0886fd4cd7c72142e124559125e004bdfb5a3c80ef1b8c820c2dacd1",
+        "group_id": "DZJD20001532",
+        "split": "train",
+        "kept": 462,
+        "removed": {
+          "same_as_standard": 91,
+          "anonymization_marker": 6,
+          "exact_duplicate": 2,
+          "fewer_than_two_words": 8
+        }
+      },
+      {
+        "file": "DZJD21001970.json",
+        "sha256": "49055d6a252f4606c0f4c44019ff66b764abd5cb7800b62d3388f4e8401cad31",
+        "group_id": "DZJD21001970",
+        "split": "train",
+        "kept": 371,
+        "removed": {
+          "same_as_standard": 31,
+          "fewer_than_two_words": 8,
+          "exact_duplicate": 2,
+          "anonymization_marker": 6
+        }
+      },
+      {
+        "file": "DZJD20001266.json",
+        "sha256": "76f390f764e1371cb91001d5ba475d69ce90d5544618bf96da100e4641336501",
+        "group_id": "DZJD20001266",
+        "split": "train",
+        "kept": 263,
+        "removed": {
+          "same_as_standard": 269,
+          "anonymization_marker": 29,
+          "fewer_than_two_words": 11
+        }
+      },
+      {
+        "file": "DZHF20001886.json",
+        "sha256": "999a02437409465a27851c12cfb840f896d8ce4f1537d0a793957bc016cc6b88",
+        "group_id": "DZHF20001886",
+        "split": "train",
+        "kept": 175,
+        "removed": {
+          "same_as_standard": 499,
+          "fewer_than_two_words": 10,
+          "anonymization_marker": 42,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20002612.json",
+        "sha256": "be0e59d29e41054096f3b0ba89cbef38437836db0c1910439dde78ff717a6211",
+        "group_id": "DZHF20002612",
+        "split": "train",
+        "kept": 214,
+        "removed": {
+          "same_as_standard": 643,
+          "fewer_than_two_words": 24,
+          "anonymization_marker": 15,
+          "exact_duplicate": 11
+        }
+      },
+      {
+        "file": "DZES20000518.json",
+        "sha256": "0be093179fd025aeff80d77e41031796b6dc3cec0cea19f1f7e530ddb17b66b7",
+        "group_id": "DZES20000518",
+        "split": "train",
+        "kept": 366,
+        "removed": {
+          "same_as_standard": 137,
+          "anonymization_marker": 15,
+          "fewer_than_two_words": 7,
+          "exact_duplicate": 8
+        }
+      },
+      {
+        "file": "DZHF20002620.json",
+        "sha256": "302c94a0263e9985445d3dece30165d251b06ce51c894b34c11f7eb7fd325bb9",
+        "group_id": "DZHF20002620",
+        "split": "train",
+        "kept": 148,
+        "removed": {
+          "same_as_standard": 557,
+          "exact_duplicate": 4,
+          "anonymization_marker": 8,
+          "fewer_than_two_words": 1
+        }
+      },
+      {
+        "file": "DZHF20002097.json",
+        "sha256": "e35d7b21dc480ccdfe5ebc9dada8accc0cb42d79b339dac09a0ade805c5025e8",
+        "group_id": "DZHF20002097",
+        "split": "train",
+        "kept": 445,
+        "removed": {
+          "same_as_standard": 143,
+          "fewer_than_two_words": 22,
+          "anonymization_marker": 24,
+          "exact_duplicate": 7
+        }
+      },
+      {
+        "file": "DZES20000565.json",
+        "sha256": "ee639dd0fc0efbfe08e8f63566aa6791eefe2c40bb34793a9e780727273e4d5d",
+        "group_id": "DZES20000565",
+        "split": "train",
+        "kept": 221,
+        "removed": {
+          "fewer_than_two_words": 19,
+          "same_as_standard": 100,
+          "anonymization_marker": 2
+        }
+      },
+      {
+        "file": "DZJD20000600.json",
+        "sha256": "f6aab7a0c21b6b0870075c61d0bec7fb5da57dd542bc0c60ea2d79a536388d3c",
+        "group_id": "DZJD20000600",
+        "split": "train",
+        "kept": 167,
+        "removed": {
+          "same_as_standard": 315,
+          "fewer_than_two_words": 10,
+          "exact_duplicate": 3,
+          "anonymization_marker": 13
+        }
+      },
+      {
+        "file": "DZES20000160.json",
+        "sha256": "b8a38917a51221dae87393accff2a6044d854fbc90fe632ab009dfb2f4c28442",
+        "group_id": "DZES20000160",
+        "split": "train",
+        "kept": 104,
+        "removed": {
+          "same_as_standard": 495,
+          "anonymization_marker": 26,
+          "fewer_than_two_words": 1
+        }
+      },
+      {
+        "file": "DZHF20001724.json",
+        "sha256": "14c1c165d17dffe0f4ec9121ff3d0c16db4205bb581c433c9489bb9764c15e1a",
+        "group_id": "DZHF20001724",
+        "split": "train",
+        "kept": 170,
+        "removed": {
+          "same_as_standard": 448,
+          "anonymization_marker": 57,
+          "fewer_than_two_words": 11,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZJD20001676.json",
+        "sha256": "688eb9ed4eca146f8de336c7859d7ad945faaf41fdb1fe4ea906fa8f204467aa",
+        "group_id": "DZJD20001676",
+        "split": "train",
+        "kept": 147,
+        "removed": {
+          "same_as_standard": 349,
+          "exact_duplicate": 1,
+          "fewer_than_two_words": 5
+        }
+      },
+      {
+        "file": "DZJD20001181.json",
+        "sha256": "a1e5dfbd7177c5cf5f5bfb416035ee3079ff807d217236962fa66c6d1cc21328",
+        "group_id": "DZJD20001181",
+        "split": "train",
+        "kept": 65,
+        "removed": {
+          "same_as_standard": 526,
+          "anonymization_marker": 7,
+          "exact_duplicate": 1,
+          "fewer_than_two_words": 2
+        }
+      },
+      {
+        "file": "DZES20000406.json",
+        "sha256": "e7c32af876773e7eaa3c4b6aefaf5e6b7a3996859dea4806301d5da1d8c31092",
+        "group_id": "DZES20000406",
+        "split": "train",
+        "kept": 216,
+        "removed": {
+          "same_as_standard": 341,
+          "exact_duplicate": 14,
+          "anonymization_marker": 66,
+          "fewer_than_two_words": 15
+        }
+      },
+      {
+        "file": "DZHF20001964.json",
+        "sha256": "ed46d541e9b96cc0306118366395ba6b44f8137d5eb7fa74a13ce092c5ef342c",
+        "group_id": "DZHF20001964",
+        "split": "train",
+        "kept": 192,
+        "removed": {
+          "same_as_standard": 310,
+          "anonymization_marker": 4,
+          "fewer_than_two_words": 2,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20000064.json",
+        "sha256": "3a266b38850d0166634bae6efbf50017713b023770016a0f2d4f847e62acf966",
+        "group_id": "DZHF20000064",
+        "split": "train",
+        "kept": 93,
+        "removed": {
+          "anonymization_marker": 19,
+          "same_as_standard": 63,
+          "fewer_than_two_words": 1
+        }
+      },
+      {
+        "file": "DZJD20001121.json",
+        "sha256": "88276f45a4aca256ac5b03b4c9ca87497c73b54a37c25e92e65b62c6900acb6d",
+        "group_id": "DZJD20001121",
+        "split": "train",
+        "kept": 90,
+        "removed": {
+          "same_as_standard": 336,
+          "anonymization_marker": 33,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20002638.json",
+        "sha256": "05c4221491503a71f84d5fb829ebfc584131dbf97d3a344a45dc29d4484f8262",
+        "group_id": "DZHF20002638",
+        "split": "train",
+        "kept": 121,
+        "removed": {
+          "same_as_standard": 538,
+          "anonymization_marker": 23,
+          "fewer_than_two_words": 2
+        }
+      },
+      {
+        "file": "DZHF20002469.json",
+        "sha256": "65ad2d8d22a8c8fd38151cf2ee1956eb4a6c3b5dd63056a29cc01dc3ee6d683e",
+        "group_id": "DZHF20002469",
+        "split": "train",
+        "kept": 156,
+        "removed": {
+          "same_as_standard": 445,
+          "anonymization_marker": 7,
+          "fewer_than_two_words": 4
+        }
+      },
+      {
+        "file": "DZJD20001816.json",
+        "sha256": "9113ddf662ccfd1a3491c8635d4963aa47254c589aa28548042da4a12b0674f6",
+        "group_id": "DZJD20001816",
+        "split": "train",
+        "kept": 258,
+        "removed": {
+          "same_as_standard": 125,
+          "anonymization_marker": 16,
+          "fewer_than_two_words": 16,
+          "exact_duplicate": 5
+        }
+      },
+      {
+        "file": "DZHF20002635.json",
+        "sha256": "c4965101d61eb975491b23fe8fccd2c05f35d4dacca6b231a150613a7d7e2fa0",
+        "group_id": "DZHF20002635",
+        "split": "train",
+        "kept": 86,
+        "removed": {
+          "same_as_standard": 63,
+          "fewer_than_two_words": 6,
+          "anonymization_marker": 2
+        }
+      },
+      {
+        "file": "DZHF20002879.json",
+        "sha256": "7d7e3433a35caf602537ea1d762db9575457fbeda820ff7cb9dfa537e07527da",
+        "group_id": "DZHF20002879",
+        "split": "train",
+        "kept": 535,
+        "removed": {
+          "same_as_standard": 86,
+          "fewer_than_two_words": 21,
+          "anonymization_marker": 6,
+          "exact_duplicate": 5
+        }
+      },
+      {
+        "file": "DZHF20002198.json",
+        "sha256": "2627771138236ecf43232c0dd7ff16e574c27a73be4b3337465aa7c0a425259f",
+        "group_id": "DZHF20002198",
+        "split": "train",
+        "kept": 470,
+        "removed": {
+          "same_as_standard": 161,
+          "exact_duplicate": 4,
+          "fewer_than_two_words": 24,
+          "anonymization_marker": 17
+        }
+      },
+      {
+        "file": "DZJD20000120.json",
+        "sha256": "337c31538edc83bc57640c9b885524b5fa270a318f5709cfb9adeaab8eb89274",
+        "group_id": "DZJD20000120",
+        "split": "train",
+        "kept": 110,
+        "removed": {
+          "fewer_than_two_words": 3,
+          "same_as_standard": 363,
+          "anonymization_marker": 13,
+          "exact_duplicate": 9
+        }
+      },
+      {
+        "file": "DZES20000069.json",
+        "sha256": "5fa837dbf7a1e0301e4a45bdf081f71eb10e7899975aa5d9940d1d58a4e5c2e9",
+        "group_id": "DZES20000069",
+        "split": "train",
+        "kept": 132,
+        "removed": {
+          "same_as_standard": 90,
+          "fewer_than_two_words": 5,
+          "anonymization_marker": 3
+        }
+      },
+      {
+        "file": "DZES20000614.json",
+        "sha256": "a5e9e76c986376f87f6a62976bac3a7fa3a27be7c23b8809a0bac06b32bb9f35",
+        "group_id": "DZES20000614",
+        "split": "train",
+        "kept": 470,
+        "removed": {
+          "same_as_standard": 18,
+          "anonymization_marker": 7,
+          "fewer_than_two_words": 2
+        }
+      },
+      {
+        "file": "DZES21001516.json",
+        "sha256": "ad2575a0e5fd79f078177cc6de8b77b6606f282bf157c0ad8b13b0c6895e7645",
+        "group_id": "DZES21001516",
+        "split": "train",
+        "kept": 178,
+        "removed": {
+          "same_as_standard": 411,
+          "anonymization_marker": 23,
+          "fewer_than_two_words": 5
+        }
+      },
+      {
+        "file": "DZHF20002463.json",
+        "sha256": "7956c697d886a3f089b6540f2a7523750320fa4246d3fbbc74ca6b0c261f0544",
+        "group_id": "DZHF20002463",
+        "split": "train",
+        "kept": 276,
+        "removed": {
+          "same_as_standard": 340,
+          "fewer_than_two_words": 34,
+          "anonymization_marker": 11,
+          "exact_duplicate": 4
+        }
+      },
+      {
+        "file": "DZHF20001251.json",
+        "sha256": "9747e76bfa19945543b8eec9fad0676706cde0d657b4801a9bd328b7d167c7bf",
+        "group_id": "DZHF20001251",
+        "split": "train",
+        "kept": 138,
+        "removed": {
+          "same_as_standard": 471,
+          "anonymization_marker": 10
+        }
+      },
+      {
+        "file": "DZES20001522.json",
+        "sha256": "d0c4091e06e06dd3abfe96da7435121c7553b1da0633e7f575fa4fddd1ce60ca",
+        "group_id": "DZES20001522",
+        "split": "train",
+        "kept": 170,
+        "removed": {
+          "same_as_standard": 520,
+          "fewer_than_two_words": 11,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20002194.json",
+        "sha256": "af1897a51d86259485961f2f10e730d6f8a31cf6927e24120da5355c8aef1502",
+        "group_id": "DZHF20002194",
+        "split": "train",
+        "kept": 524,
+        "removed": {
+          "same_as_standard": 195,
+          "fewer_than_two_words": 33,
+          "anonymization_marker": 15,
+          "exact_duplicate": 9
+        }
+      },
+      {
+        "file": "DZJD20000873.json",
+        "sha256": "38bd7f4012966a8439802d67adacaeabbf16ad25b35f1b23d927659ea5991d79",
+        "group_id": "DZJD20000873",
+        "split": "train",
+        "kept": 115,
+        "removed": {
+          "same_as_standard": 471,
+          "fewer_than_two_words": 4,
+          "anonymization_marker": 16,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZES21001846.json",
+        "sha256": "5356a9a1ce25c76c7bc33093596a68c150534888a83272a1a109332e73690ba9",
+        "group_id": "DZES21001846",
+        "split": "train",
+        "kept": 65,
+        "removed": {
+          "same_as_standard": 203,
+          "anonymization_marker": 9,
+          "exact_duplicate": 2,
+          "fewer_than_two_words": 1
+        }
+      },
+      {
+        "file": "DZHF20000728.json",
+        "sha256": "a35731e4db2d546193df9caecc29bc131dd4d135d74f0889b46740253c96f2e0",
+        "group_id": "DZHF20000728",
+        "split": "train",
+        "kept": 10,
+        "removed": {
+          "same_as_standard": 717
+        }
+      },
+      {
+        "file": "DZJD20001482.json",
+        "sha256": "1dc1bb9279c3b3ee304ea66fcf1000d6f44cb131d6d719f9e41359b0c334faf9",
+        "group_id": "DZJD20001482",
+        "split": "train",
+        "kept": 229,
+        "removed": {
+          "same_as_standard": 289,
+          "fewer_than_two_words": 22,
+          "exact_duplicate": 3,
+          "anonymization_marker": 5
+        }
+      },
+      {
+        "file": "DZHF20000845.json",
+        "sha256": "d52c4fa623012ad1ad6c7f2d38677bacb7c75c5d8eefc70bf251b8da1ec12a46",
+        "group_id": "DZHF20000845",
+        "split": "train",
+        "kept": 38,
+        "removed": {
+          "same_as_standard": 261,
+          "anonymization_marker": 31,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20001351.json",
+        "sha256": "5df78e22312e33938b76b3c5908a52e2e27d3b66625203a1c113d7392a6dbd81",
+        "group_id": "DZHF20001351",
+        "split": "train",
+        "kept": 53,
+        "removed": {
+          "same_as_standard": 220,
+          "anonymization_marker": 33,
+          "fewer_than_two_words": 1
+        }
+      },
+      {
+        "file": "DZES20001161.json",
+        "sha256": "cdf302cf0d1025b6df74b56da052bc07f0b1a3abfe6a22d331b6d640902d7971",
+        "group_id": "DZES20001161",
+        "split": "train",
+        "kept": 219,
+        "removed": {
+          "same_as_standard": 230,
+          "anonymization_marker": 24,
+          "exact_duplicate": 2,
+          "fewer_than_two_words": 4
+        }
+      },
+      {
+        "file": "DZJD20001651.json",
+        "sha256": "56ec801ba4d733b6eb543b32811f05a3684aefdd6a116f79ba52b363c4826fdb",
+        "group_id": "DZJD20001651",
+        "split": "train",
+        "kept": 143,
+        "removed": {
+          "same_as_standard": 464,
+          "anonymization_marker": 14,
+          "fewer_than_two_words": 16,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20000166.json",
+        "sha256": "15b3a3c7aedb9aa6f735d3d957c478af157e59c2f1cf3aa6195ccc5fb1113e3c",
+        "group_id": "DZHF20000166",
+        "split": "train",
+        "kept": 91,
+        "removed": {
+          "same_as_standard": 566,
+          "anonymization_marker": 55,
+          "fewer_than_two_words": 13
+        }
+      },
+      {
+        "file": "DZHF20001230.json",
+        "sha256": "b2ea3ff654bcb3b711a14a8bf76da391372fe3b3374d147e56369d386d0f261c",
+        "group_id": "DZHF20001230",
+        "split": "train",
+        "kept": 129,
+        "removed": {
+          "same_as_standard": 45,
+          "fewer_than_two_words": 5,
+          "exact_duplicate": 1,
+          "anonymization_marker": 3
+        }
+      },
+      {
+        "file": "DZES20000946.json",
+        "sha256": "f26a2db6a216bcaef7c7d99727819d9d3490e6f960d5f787f8b318dce9ca2844",
+        "group_id": "DZES20000946",
+        "split": "train",
+        "kept": 212,
+        "removed": {
+          "same_as_standard": 423,
+          "anonymization_marker": 39,
+          "fewer_than_two_words": 2
+        }
+      },
+      {
+        "file": "DZJD20001241.json",
+        "sha256": "f47bbea38956918d316f79eaa9fb86a81b9c60e880b9b83ac25940b1407278d2",
+        "group_id": "DZJD20001241",
+        "split": "train",
+        "kept": 162,
+        "removed": {
+          "same_as_standard": 366,
+          "fewer_than_two_words": 31,
+          "exact_duplicate": 7,
+          "anonymization_marker": 19
+        }
+      },
+      {
+        "file": "DZHF20001950.json",
+        "sha256": "01ed24280af2ba168fce810e4a85fa77f6b07660821ff5020d8c86e7ab14eeb6",
+        "group_id": "DZHF20001950",
+        "split": "train",
+        "kept": 362,
+        "removed": {
+          "same_as_standard": 137,
+          "anonymization_marker": 13,
+          "fewer_than_two_words": 2,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20002420.json",
+        "sha256": "55b3d785abdcfbc0bc6352fafc32867429268e95dac7b4d07c95974e89bb55e8",
+        "group_id": "DZHF20002420",
+        "split": "train",
+        "kept": 174,
+        "removed": {
+          "same_as_standard": 413,
+          "fewer_than_two_words": 7,
+          "anonymization_marker": 9
+        }
+      },
+      {
+        "file": "DZJD20000416.json",
+        "sha256": "3970ee5c8d86431728b019fcf47fff7fbd2653bafdf36b9fbdd77d0580288d3a",
+        "group_id": "DZJD20000416",
+        "split": "train",
+        "kept": 124,
+        "removed": {
+          "same_as_standard": 331,
+          "anonymization_marker": 57,
+          "fewer_than_two_words": 2,
+          "exact_duplicate": 5
+        }
+      },
+      {
+        "file": "DZJD20001769.json",
+        "sha256": "7c68e3839ac889e8e7a1e1723211c5fb9a626bd43a98a2faebc333494aabd08a",
+        "group_id": "DZJD20001769",
+        "split": "train",
+        "kept": 102,
+        "removed": {
+          "same_as_standard": 356,
+          "exact_duplicate": 1,
+          "fewer_than_two_words": 1
+        }
+      },
+      {
+        "file": "DZES21001791.json",
+        "sha256": "076df7f6e34e50697ce2b08e75cf564556fb76fd5084bcad9ead6ee407b402ed",
+        "group_id": "DZES21001791",
+        "split": "train",
+        "kept": 49,
+        "removed": {
+          "same_as_standard": 528,
+          "anonymization_marker": 14,
+          "fewer_than_two_words": 4
+        }
+      },
+      {
+        "file": "DZJD20001804.json",
+        "sha256": "6024a3adf22c7cd4e328a7b3fcf4aec2f02c4e877d7d4a05ee0106c615b36c1a",
+        "group_id": "DZJD20001804",
+        "split": "train",
+        "kept": 172,
+        "removed": {
+          "same_as_standard": 172,
+          "anonymization_marker": 28,
+          "fewer_than_two_words": 4,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20000313.json",
+        "sha256": "40c2863b7a501b799e8e6046233085d3ee66c4945886b16ae180aaf11ba42d14",
+        "group_id": "DZHF20000313",
+        "split": "train",
+        "kept": 286,
+        "removed": {
+          "fewer_than_two_words": 19,
+          "same_as_standard": 211,
+          "anonymization_marker": 84,
+          "exact_duplicate": 4
+        }
+      },
+      {
+        "file": "DZES20000268.json",
+        "sha256": "87f8843624e99786232dfcf194ebed9447f38667b800c56a09573b015060c5bc",
+        "group_id": "DZES20000268",
+        "split": "train",
+        "kept": 270,
+        "removed": {
+          "same_as_standard": 421,
+          "fewer_than_two_words": 17,
+          "exact_duplicate": 2,
+          "anonymization_marker": 1
+        }
+      },
+      {
+        "file": "DZES20001524.json",
+        "sha256": "424b79be64f30719f8b6e31400ca14ab8d0ab9d205e3d03e90e1550e824ddb19",
+        "group_id": "DZES20001524",
+        "split": "train",
+        "kept": 85,
+        "removed": {
+          "same_as_standard": 604,
+          "fewer_than_two_words": 6
+        }
+      },
+      {
+        "file": "DZES20001041.json",
+        "sha256": "9b567632a2774b3f309f25b056646a4396de6421d483f1ec5c4c843bf173786f",
+        "group_id": "DZES20001041",
+        "split": "train",
+        "kept": 532,
+        "removed": {
+          "fewer_than_two_words": 15,
+          "same_as_standard": 72,
+          "anonymization_marker": 1
+        }
+      },
+      {
+        "file": "DZJD20001861.json",
+        "sha256": "47cf65c63600635b366fed3c6913ef32e492cbd341fcb17ec9d3da16f77d81bb",
+        "group_id": "DZJD20001861",
+        "split": "train",
+        "kept": 54,
+        "removed": {
+          "same_as_standard": 232,
+          "fewer_than_two_words": 1,
+          "anonymization_marker": 9
+        }
+      },
+      {
+        "file": "DZES21001829.json",
+        "sha256": "5f32bad5a86e31df9e2be379b79e370bc348b7085d6e0ec71a2e9dac2d6cf2b4",
+        "group_id": "DZES21001829",
+        "split": "train",
+        "kept": 316,
+        "removed": {
+          "same_as_standard": 168,
+          "anonymization_marker": 10,
+          "fewer_than_two_words": 5,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZJD21001964.json",
+        "sha256": "7af6a6363e9b29c08f6179a46906f9df657a191c0f5e88052fa570ac6643d10b",
+        "group_id": "DZJD21001964",
+        "split": "train",
+        "kept": 134,
+        "removed": {
+          "same_as_standard": 574,
+          "exact_duplicate": 11,
+          "fewer_than_two_words": 8,
+          "anonymization_marker": 3
+        }
+      },
+      {
+        "file": "DZHF20000819.json",
+        "sha256": "1c79361a9c98c29a26869592f423583c39985abe838c5f00256a6779115b7237",
+        "group_id": "DZHF20000819",
+        "split": "train",
+        "kept": 97,
+        "removed": {
+          "same_as_standard": 441,
+          "fewer_than_two_words": 4,
+          "anonymization_marker": 3
+        }
+      },
+      {
+        "file": "DZJD20000585.json",
+        "sha256": "1e08a14b4814c77ed6ef10ec69ba4f335f649bcf3bac6e909c1aa1709bc67e5a",
+        "group_id": "DZJD20000585",
+        "split": "train",
+        "kept": 80,
+        "removed": {
+          "same_as_standard": 396,
+          "anonymization_marker": 51,
+          "fewer_than_two_words": 3
+        }
+      },
+      {
+        "file": "DZJD20001600.json",
+        "sha256": "b92dd25710039ffe7fae04b9d2e2ddfce2d6462d010e43847dae0072a5837aea",
+        "group_id": "DZJD20001600",
+        "split": "train",
+        "kept": 149,
+        "removed": {
+          "same_as_standard": 264,
+          "fewer_than_two_words": 17,
+          "exact_duplicate": 2,
+          "anonymization_marker": 11
+        }
+      },
+      {
+        "file": "DZHF20001051.json",
+        "sha256": "9938d469f846f76589a2ab25880edd388c36fe6219e696f497c2c9fa5c803d03",
+        "group_id": "DZHF20001051",
+        "split": "train",
+        "kept": 195,
+        "removed": {
+          "same_as_standard": 343,
+          "fewer_than_two_words": 5,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZHF20000882.json",
+        "sha256": "b0b3098cdd93cb01c6744a0905e5fe2bc43094593b3c1b32e5d0bd22f8a61d73",
+        "group_id": "DZHF20000882",
+        "split": "train",
+        "kept": 316,
+        "removed": {
+          "same_as_standard": 113,
+          "fewer_than_two_words": 11,
+          "anonymization_marker": 3
+        }
+      },
+      {
+        "file": "DZHF20001338.json",
+        "sha256": "a7b5b545ed3fcaab7deb0670bb7b6c6adf43cba09131480b9c9e0b994be6050e",
+        "group_id": "DZHF20001338",
+        "split": "train",
+        "kept": 180,
+        "removed": {
+          "anonymization_marker": 77,
+          "same_as_standard": 591,
+          "fewer_than_two_words": 21,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZJD20000916.json",
+        "sha256": "a96d28ef68e3430f565bf86f76af4472eb652de399bcd1a797b1d3ae833f4928",
+        "group_id": "DZJD20000916",
+        "split": "train",
+        "kept": 152,
+        "removed": {
+          "same_as_standard": 253,
+          "fewer_than_two_words": 9,
+          "anonymization_marker": 3
+        }
+      },
+      {
+        "file": "DZES20000903.json",
+        "sha256": "984c5777ab085fc597f3b1303718c65d3e56331ca81ab3dafd027d25fc280959",
+        "group_id": "DZES20000903",
+        "split": "train",
+        "kept": 228,
+        "removed": {
+          "same_as_standard": 470,
+          "fewer_than_two_words": 7,
+          "anonymization_marker": 31,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZJD20000162.json",
+        "sha256": "14e8f8279d80b74bb7b60b6825c25c2baa90188537c57cddafad4acda2a8b556",
+        "group_id": "DZJD20000162",
+        "split": "train",
+        "kept": 283,
+        "removed": {
+          "same_as_standard": 276,
+          "fewer_than_two_words": 18,
+          "anonymization_marker": 30,
+          "exact_duplicate": 6
+        }
+      },
+      {
+        "file": "DZJD21001956.json",
+        "sha256": "e2320fc799c65fec1883783c49454e5425b45288ccb0ed69074db55e8d69f202",
+        "group_id": "DZJD21001956",
+        "split": "train",
+        "kept": 193,
+        "removed": {
+          "anonymization_marker": 19,
+          "same_as_standard": 201,
+          "fewer_than_two_words": 7,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZJD20001462.json",
+        "sha256": "d0b9add25c327ba4ef5b852c103e242c57a1d20ac2440c7c13be8824a97bda0f",
+        "group_id": "DZJD20001462",
+        "split": "train",
+        "kept": 223,
+        "removed": {
+          "same_as_standard": 227,
+          "anonymization_marker": 17,
+          "fewer_than_two_words": 18
+        }
+      },
+      {
+        "file": "DZES20000407.json",
+        "sha256": "aa8e425842e877f260979b7a64520b9e0fc773884079e871cae15aec2c1fc706",
+        "group_id": "DZES20000407",
+        "split": "train",
+        "kept": 229,
+        "removed": {
+          "fewer_than_two_words": 7,
+          "same_as_standard": 345,
+          "anonymization_marker": 16,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20000478.json",
+        "sha256": "5bad780cc36b67c462d465e0ce2b70dbcc91363ab48b33c25258a5a7d92b4667",
+        "group_id": "DZHF20000478",
+        "split": "train",
+        "kept": 503,
+        "removed": {
+          "same_as_standard": 131,
+          "fewer_than_two_words": 39,
+          "exact_duplicate": 2,
+          "anonymization_marker": 1
+        }
+      },
+      {
+        "file": "DZES20000225.json",
+        "sha256": "c873d47f5d9ce7cde14416b48fd402e1b486516caeafca0edf77ecb6c2100da3",
+        "group_id": "DZES20000225",
+        "split": "train",
+        "kept": 178,
+        "removed": {
+          "same_as_standard": 531,
+          "anonymization_marker": 49,
+          "fewer_than_two_words": 15
+        }
+      },
+      {
+        "file": "DZJD20001497.json",
+        "sha256": "70a3bc4acd3098052bceebcf25f14cc5512ecf2af82bf7bf3a56cdc1aea673a1",
+        "group_id": "DZJD20001497",
+        "split": "train",
+        "kept": 128,
+        "removed": {
+          "same_as_standard": 534,
+          "fewer_than_two_words": 21,
+          "exact_duplicate": 6,
+          "anonymization_marker": 9
+        }
+      },
+      {
+        "file": "DZES21001821.json",
+        "sha256": "7e3386a9555f272372317a5d670151d4053b16f7f3f00bcbfb694ab082e07cf3",
+        "group_id": "DZES21001821",
+        "split": "train",
+        "kept": 76,
+        "removed": {
+          "same_as_standard": 76,
+          "anonymization_marker": 6,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20002421.json",
+        "sha256": "bc540c3452f5f54732009db6ded63524508c3739007bf6d31de4183bcd25d787",
+        "group_id": "DZHF20002421",
+        "split": "train",
+        "kept": 207,
+        "removed": {
+          "same_as_standard": 363,
+          "anonymization_marker": 4,
+          "fewer_than_two_words": 3,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZES20000274.json",
+        "sha256": "a0a2a2a0da7d567691c17c7724bc774e02a53852cc0ca18345ede33046d67c1f",
+        "group_id": "DZES20000274",
+        "split": "train",
+        "kept": 127,
+        "removed": {
+          "same_as_standard": 492,
+          "anonymization_marker": 16,
+          "fewer_than_two_words": 7
+        }
+      },
+      {
+        "file": "DZHF20002512.json",
+        "sha256": "07d3a045c8488cc7240bc1134ed21d48857eaf78b7d6e8a6baace460e26e2f56",
+        "group_id": "DZHF20002512",
+        "split": "train",
+        "kept": 140,
+        "removed": {
+          "same_as_standard": 681,
+          "anonymization_marker": 72,
+          "exact_duplicate": 1,
+          "fewer_than_two_words": 9
+        }
+      },
+      {
+        "file": "DZES20000346.json",
+        "sha256": "f8eff368d266a0e68148dcd06e60826482edf865cc6f29bfcf650de7b0b0c7be",
+        "group_id": "DZES20000346",
+        "split": "train",
+        "kept": 216,
+        "removed": {
+          "same_as_standard": 393,
+          "anonymization_marker": 50,
+          "fewer_than_two_words": 11
+        }
+      },
+      {
+        "file": "DZES20000002.json",
+        "sha256": "c36f1ff0db1c089ac38dd1e8c9746029ea416eba9074b48b94e8562c587bbdab",
+        "group_id": "DZES20000002",
+        "split": "train",
+        "kept": 245,
+        "removed": {
+          "same_as_standard": 540,
+          "fewer_than_two_words": 20,
+          "anonymization_marker": 33
+        }
+      },
+      {
+        "file": "DZJD20000025.json",
+        "sha256": "9f374baa165b38727a4737fe7c5a800d8b8d7e4a2830c86deaec81b476ef8908",
+        "group_id": "DZJD20000025",
+        "split": "train",
+        "kept": 551,
+        "removed": {
+          "anonymization_marker": 9,
+          "same_as_standard": 37,
+          "fewer_than_two_words": 13,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20002888.json",
+        "sha256": "21a466a427825e2fdc693f8f6eabb748dcb52467aa664beea62eee34e3ddc060",
+        "group_id": "DZHF20002888",
+        "split": "train",
+        "kept": 455,
+        "removed": {
+          "same_as_standard": 146,
+          "exact_duplicate": 5,
+          "fewer_than_two_words": 21,
+          "anonymization_marker": 2
+        }
+      },
+      {
+        "file": "DZES20000760.json",
+        "sha256": "51bc40b8930d8e5695991aabefc2d77399ae2a05742b981362eaa792aef0d029",
+        "group_id": "DZES20000760",
+        "split": "train",
+        "kept": 100,
+        "removed": {
+          "same_as_standard": 347,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZJD21002102.json",
+        "sha256": "2159934fee918aa8077c64ef3d8f74f58bd45f1a2bc72b856fb705f984a965ed",
+        "group_id": "DZJD21002102",
+        "split": "train",
+        "kept": 80,
+        "removed": {
+          "same_as_standard": 548,
+          "fewer_than_two_words": 4,
+          "anonymization_marker": 2,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20002567.json",
+        "sha256": "37a6e7604ad02fec89a478104265d5e9d732a907a3d2f7e06c74865a35e8bfd3",
+        "group_id": "DZHF20002567",
+        "split": "train",
+        "kept": 206,
+        "removed": {
+          "same_as_standard": 585,
+          "fewer_than_two_words": 13,
+          "anonymization_marker": 43,
+          "exact_duplicate": 7
+        }
+      },
+      {
+        "file": "DZES20000081.json",
+        "sha256": "16b69276e48cf1cdaafe8d5293659f050abc546682d105af65054c1c995884af",
+        "group_id": "DZES20000081",
+        "split": "train",
+        "kept": 496,
+        "removed": {
+          "same_as_standard": 177,
+          "fewer_than_two_words": 23,
+          "anonymization_marker": 36,
+          "exact_duplicate": 5
+        }
+      },
+      {
+        "file": "DZHF20000463.json",
+        "sha256": "5b9862155a1362bbc55454edf805c7ca03b30219b49c9594ed11ed95e70980d8",
+        "group_id": "DZHF20000463",
+        "split": "train",
+        "kept": 407,
+        "removed": {
+          "same_as_standard": 64,
+          "fewer_than_two_words": 24,
+          "anonymization_marker": 1
+        }
+      },
+      {
+        "file": "DZJD21002106.json",
+        "sha256": "0890b8cd7f0fb4c2ded80b38b82908b5d31d2f01ef40ffb1b7d44f020fceab0d",
+        "group_id": "DZJD21002106",
+        "split": "train",
+        "kept": 176,
+        "removed": {
+          "same_as_standard": 156,
+          "anonymization_marker": 22,
+          "fewer_than_two_words": 8,
+          "exact_duplicate": 3
+        }
+      },
+      {
+        "file": "DZJD20001637.json",
+        "sha256": "68de2dd8a463da5678ce7d6575a948f5354b0066a47e20b87cd2d65288ca71c5",
+        "group_id": "DZJD20001637",
+        "split": "train",
+        "kept": 128,
+        "removed": {
+          "same_as_standard": 551,
+          "anonymization_marker": 41,
+          "fewer_than_two_words": 9,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZJD20001162.json",
+        "sha256": "7482ff8ff8dde076691adbb0f63794ce59c41a6dea639dfc2f6acf84e9e96f27",
+        "group_id": "DZJD20001162",
+        "split": "train",
+        "kept": 270,
+        "removed": {
+          "same_as_standard": 306,
+          "fewer_than_two_words": 4,
+          "anonymization_marker": 31
+        }
+      },
+      {
+        "file": "DZHF20000146.json",
+        "sha256": "91cd687ddb865fdcc8f19071088c70a6ff1985102e914711f811534939dde4ba",
+        "group_id": "DZHF20000146",
+        "split": "train",
+        "kept": 191,
+        "removed": {
+          "same_as_standard": 521,
+          "anonymization_marker": 101,
+          "fewer_than_two_words": 4,
+          "exact_duplicate": 4
+        }
+      },
+      {
+        "file": "DZES20000941.json",
+        "sha256": "41a0323f1b06290fa17e1148f5474100b50330e0e463913e36c2984dd98e80f4",
+        "group_id": "DZES20000941",
+        "split": "train",
+        "kept": 142,
+        "removed": {
+          "same_as_standard": 465,
+          "anonymization_marker": 47,
+          "exact_duplicate": 4
+        }
+      },
+      {
+        "file": "DZHF20000108.json",
+        "sha256": "ba8c642cb809718f543f2f636022a1d37db4748198e4e01c888f915045ac49aa",
+        "group_id": "DZHF20000108",
+        "split": "train",
+        "kept": 28,
+        "removed": {
+          "same_as_standard": 204,
+          "fewer_than_two_words": 3,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZJD21002085.json",
+        "sha256": "3fae9b7ff394ba7e175b2da8cd78839826ac63100c374e318280e69086e03f0b",
+        "group_id": "DZJD21002085",
+        "split": "train",
+        "kept": 153,
+        "removed": {
+          "same_as_standard": 205,
+          "anonymization_marker": 18,
+          "exact_duplicate": 5,
+          "fewer_than_two_words": 1
+        }
+      },
+      {
+        "file": "DZJD20000369.json",
+        "sha256": "af912904be2082e18fed130904b11b0221242b482220e094c2d5ff56b8892177",
+        "group_id": "DZJD20000369",
+        "split": "train",
+        "kept": 137,
+        "removed": {
+          "same_as_standard": 241,
+          "fewer_than_two_words": 4,
+          "anonymization_marker": 48,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20001967.json",
+        "sha256": "b770af7e0189ab3309994b5176af7dd8fcaedabff85e02026278bcb720204681",
+        "group_id": "DZHF20001967",
+        "split": "train",
+        "kept": 128,
+        "removed": {
+          "same_as_standard": 144,
+          "anonymization_marker": 4,
+          "exact_duplicate": 1,
+          "fewer_than_two_words": 2
+        }
+      },
+      {
+        "file": "DZHF20001934.json",
+        "sha256": "d2526c45905d41c4d31149a0a58f2dab4f18d75411100b52bb880b2dc52b987f",
+        "group_id": "DZHF20001934",
+        "split": "train",
+        "kept": 253,
+        "removed": {
+          "same_as_standard": 435,
+          "exact_duplicate": 5,
+          "fewer_than_two_words": 15,
+          "anonymization_marker": 28
+        }
+      },
+      {
+        "file": "DZJD20000431.json",
+        "sha256": "46d57ff04635a264ae138bbf5793e883151e78726e733e99fb159b095ea39e84",
+        "group_id": "DZJD20000431",
+        "split": "train",
+        "kept": 81,
+        "removed": {
+          "same_as_standard": 362,
+          "anonymization_marker": 9,
+          "fewer_than_two_words": 4
+        }
+      },
+      {
+        "file": "DZHF20001761.json",
+        "sha256": "e96e69e88b47e2ca18f79dbbacb7d8e9cb7a089a713913566b02689bc3eec7cc",
+        "group_id": "DZHF20001761",
+        "split": "train",
+        "kept": 227,
+        "removed": {
+          "same_as_standard": 621,
+          "anonymization_marker": 80,
+          "fewer_than_two_words": 15,
+          "exact_duplicate": 3
+        }
+      },
+      {
+        "file": "DZHF20000047.json",
+        "sha256": "e6f5b1edb67f4f44f5e22fb1bce2426412e5ddfea5cf49511174f670cfc5c76f",
+        "group_id": "DZHF20000047",
+        "split": "train",
+        "kept": 175,
+        "removed": {
+          "same_as_standard": 374,
+          "anonymization_marker": 27,
+          "fewer_than_two_words": 3
+        }
+      },
+      {
+        "file": "DZJD20000065.json",
+        "sha256": "0285841fad8ccd546e4867a483e0c51c6dfafb6926aded795100214a00f4e742",
+        "group_id": "DZJD20000065",
+        "split": "train",
+        "kept": 201,
+        "removed": {
+          "same_as_standard": 224,
+          "anonymization_marker": 7,
+          "fewer_than_two_words": 14,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20002760.json",
+        "sha256": "77761e6a08c46a1c487160348d51f27e65df83098c8e01a42957a0a07b530cc8",
+        "group_id": "DZHF20002760",
+        "split": "train",
+        "kept": 416,
+        "removed": {
+          "fewer_than_two_words": 18,
+          "same_as_standard": 274,
+          "anonymization_marker": 30,
+          "exact_duplicate": 4
+        }
+      },
+      {
+        "file": "DZHF20002549.json",
+        "sha256": "33716234dffbabcee427fb4d7ecb0e3cf6bf2892842bf6ac11724e9acd112d97",
+        "group_id": "DZHF20002549",
+        "split": "train",
+        "kept": 249,
+        "removed": {
+          "anonymization_marker": 6,
+          "same_as_standard": 188,
+          "fewer_than_two_words": 14
+        }
+      },
+      {
+        "file": "DZHF20002610.json",
+        "sha256": "39a9dc5354c312e13ce89636b0bef12b18052cf1b9ca231582f92a80c216460a",
+        "group_id": "DZHF20002610",
+        "split": "train",
+        "kept": 325,
+        "removed": {
+          "same_as_standard": 423,
+          "exact_duplicate": 9,
+          "fewer_than_two_words": 13,
+          "anonymization_marker": 23
+        }
+      },
+      {
+        "file": "DZHF20001154.json",
+        "sha256": "d324d8d0d485fe3cdd1334f5a1632662d9c363a21c228e0e8b44ba33e0ca4db8",
+        "group_id": "DZHF20001154",
+        "split": "train",
+        "kept": 57,
+        "removed": {
+          "same_as_standard": 264,
+          "anonymization_marker": 15,
+          "exact_duplicate": 3,
+          "fewer_than_two_words": 1
+        }
+      },
+      {
+        "file": "DZES21001597.json",
+        "sha256": "d7fafb06704ac83d3d5cc9bdf31f48a8b229db768caf5c7af5c3c2dda3926c3b",
+        "group_id": "DZES21001597",
+        "split": "train",
+        "kept": 289,
+        "removed": {
+          "fewer_than_two_words": 8,
+          "same_as_standard": 391,
+          "anonymization_marker": 2,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20002109.json",
+        "sha256": "9bd82335a80c3eea523a1525427ebdb2970af6d053d333e5d63b6a6ddc278b90",
+        "group_id": "DZHF20002109",
+        "split": "train",
+        "kept": 117,
+        "removed": {
+          "same_as_standard": 385,
+          "anonymization_marker": 33,
+          "fewer_than_two_words": 5,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZES20000339.json",
+        "sha256": "70e0c86ee669b8be34ecb842365b3268ff4141249df27c95e240e41aeea2c415",
+        "group_id": "DZES20000339",
+        "split": "train",
+        "kept": 102,
+        "removed": {
+          "same_as_standard": 807,
+          "fewer_than_two_words": 9
+        }
+      },
+      {
+        "file": "DZHF20001019.json",
+        "sha256": "019173b8e5e9569b932ce4987ef45dc490f3869318bc957abc1090f2eb1bac3c",
+        "group_id": "DZHF20001019",
+        "split": "train",
+        "kept": 51,
+        "removed": {
+          "same_as_standard": 387,
+          "anonymization_marker": 70,
+          "fewer_than_two_words": 5,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZJD20000236.json",
+        "sha256": "597f8f334d009af3faac1f670f01712f8f28ac3de9c83bb5fb7c5ed9224a193a",
+        "group_id": "DZJD20000236",
+        "split": "train",
+        "kept": 99,
+        "removed": {
+          "same_as_standard": 557,
+          "anonymization_marker": 13,
+          "fewer_than_two_words": 5,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20003031.json",
+        "sha256": "96659a854ac12c58b6db3a7850b9af22f0fed0b80a7c176d7afb95714292acee",
+        "group_id": "DZHF20003031",
+        "split": "train",
+        "kept": 288,
+        "removed": {
+          "same_as_standard": 296,
+          "exact_duplicate": 3,
+          "fewer_than_two_words": 13,
+          "anonymization_marker": 7
+        }
+      },
+      {
+        "file": "DZHF20001178.json",
+        "sha256": "945a754cf18999915c01fd92449a2dfb4f47658e3dd215ad3d6c54147bded150",
+        "group_id": "DZHF20001178",
+        "split": "train",
+        "kept": 114,
+        "removed": {
+          "same_as_standard": 75,
+          "anonymization_marker": 9
+        }
+      },
+      {
+        "file": "DZJD20001453.json",
+        "sha256": "6daf2eedcc93763af5cf0df79f25d4e5d091a8afa9eca4f8943b53d99ecf945c",
+        "group_id": "DZJD20001453",
+        "split": "train",
+        "kept": 323,
+        "removed": {
+          "fewer_than_two_words": 49,
+          "same_as_standard": 435,
+          "anonymization_marker": 88,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZJD20001706.json",
+        "sha256": "50d1296a509b507772aab16a639dfbd738b3ae3401f9423c9ddfc8f0b3c3947e",
+        "group_id": "DZJD20001706",
+        "split": "train",
+        "kept": 291,
+        "removed": {
+          "same_as_standard": 164,
+          "fewer_than_two_words": 12,
+          "anonymization_marker": 18,
+          "exact_duplicate": 5
+        }
+      },
+      {
+        "file": "DZHF20000229.json",
+        "sha256": "bb147709d159a32448361a282f19057854287e996fa48e6e0d81e07f67ae8379",
+        "group_id": "DZHF20000229",
+        "split": "train",
+        "kept": 146,
+        "removed": {
+          "same_as_standard": 474,
+          "fewer_than_two_words": 19,
+          "anonymization_marker": 4,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZHF20001913.json",
+        "sha256": "b306d0f62b1096d20bfce958a917f173f27b42e82977aefe433c75ca5ac10695",
+        "group_id": "DZHF20001913",
+        "split": "train",
+        "kept": 149,
+        "removed": {
+          "same_as_standard": 17,
+          "fewer_than_two_words": 2
+        }
+      },
+      {
+        "file": "DZHF20000697.json",
+        "sha256": "81eb31257f7534dbbc50525bf7e93b83b3ed1fdac4fe9e1ce292f69571dbff84",
+        "group_id": "DZHF20000697",
+        "split": "train",
+        "kept": 197,
+        "removed": {
+          "fewer_than_two_words": 5,
+          "same_as_standard": 72,
+          "anonymization_marker": 8,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZJD20000593.json",
+        "sha256": "d3269933c65e634771ed2565cc36af1abd200c06b4c85a809596b3467335bb6c",
+        "group_id": "DZJD20000593",
+        "split": "train",
+        "kept": 219,
+        "removed": {
+          "same_as_standard": 319,
+          "anonymization_marker": 15,
+          "fewer_than_two_words": 2
+        }
+      },
+      {
+        "file": "DZHF20000271.json",
+        "sha256": "9caebf7629b86b43c5c604fe84d6f7d6caa82b558a51128396e62dbdfd9f10ef",
+        "group_id": "DZHF20000271",
+        "split": "train",
+        "kept": 390,
+        "removed": {
+          "same_as_standard": 31,
+          "fewer_than_two_words": 6,
+          "anonymization_marker": 10
+        }
+      },
+      {
+        "file": "DZHF20002531.json",
+        "sha256": "ae055190406540c80ce8e8a7a27de68002fc13e8f53cafa25c5b0c78602e8edf",
+        "group_id": "DZHF20002531",
+        "split": "train",
+        "kept": 191,
+        "removed": {
+          "anonymization_marker": 40,
+          "same_as_standard": 544,
+          "exact_duplicate": 6,
+          "fewer_than_two_words": 9
+        }
+      },
+      {
+        "file": "DZES20000516.json",
+        "sha256": "9c8ba93442f8dee88957fdffa3c9598181aa25a7c9632fac70683c8f11a5e57e",
+        "group_id": "DZES20000516",
+        "split": "train",
+        "kept": 141,
+        "removed": {
+          "same_as_standard": 464,
+          "anonymization_marker": 27,
+          "fewer_than_two_words": 5,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20000114.json",
+        "sha256": "dae33d005b9ee95c3f62ecf17ee76f0f850356062327c16a5cc77e1ec228d471",
+        "group_id": "DZHF20000114",
+        "split": "train",
+        "kept": 261,
+        "removed": {
+          "anonymization_marker": 8,
+          "same_as_standard": 155,
+          "fewer_than_two_words": 5
+        }
+      },
+      {
+        "file": "DZES20000298.json",
+        "sha256": "96100c96248b08db01acf926c8cd76573bb5e18a6df8f3ca8125c846d9ac7dc7",
+        "group_id": "DZES20000298",
+        "split": "train",
+        "kept": 119,
+        "removed": {
+          "same_as_standard": 286,
+          "anonymization_marker": 17,
+          "fewer_than_two_words": 9
+        }
+      },
+      {
+        "file": "DZJD20000956.json",
+        "sha256": "e00168b31e69bf1749f8a5376ba268b3ca96f5954ff1e8636bd348b37481bab1",
+        "group_id": "DZJD20000956",
+        "split": "train",
+        "kept": 114,
+        "removed": {
+          "anonymization_marker": 33,
+          "same_as_standard": 327,
+          "exact_duplicate": 5,
+          "fewer_than_two_words": 2
+        }
+      },
+      {
+        "file": "DZHF20002669.json",
+        "sha256": "6eeb7dc8d52c71b10c51ca8772fe5face1929e87995aea55d05812cfef48a70d",
+        "group_id": "DZHF20002669",
+        "split": "train",
+        "kept": 461,
+        "removed": {
+          "same_as_standard": 123,
+          "fewer_than_two_words": 18,
+          "anonymization_marker": 14,
+          "exact_duplicate": 7
+        }
+      },
+      {
+        "file": "DZJD20001292.json",
+        "sha256": "d3bd1fcc8b64f5cf4a5cfa34478291959c2c6a7065ba292fdc54a7fed442b061",
+        "group_id": "DZJD20001292",
+        "split": "train",
+        "kept": 348,
+        "removed": {
+          "same_as_standard": 123,
+          "fewer_than_two_words": 20,
+          "anonymization_marker": 36,
+          "exact_duplicate": 6
+        }
+      },
+      {
+        "file": "DZHF20000126.json",
+        "sha256": "85edf3bafef3495a1a11c2a7852d6fc07351d623f746e6f22b8b9da573ae4b78",
+        "group_id": "DZHF20000126",
+        "split": "train",
+        "kept": 280,
+        "removed": {
+          "same_as_standard": 625,
+          "exact_duplicate": 13,
+          "anonymization_marker": 66,
+          "fewer_than_two_words": 20
+        }
+      },
+      {
+        "file": "DZHF20002322.json",
+        "sha256": "868408c8102e58416d08b7bbdc02c519f977af0745a5eb63db9390d95fe54b63",
+        "group_id": "DZHF20002322",
+        "split": "validation",
+        "kept": 117,
+        "removed": {
+          "same_as_standard": 557,
+          "fewer_than_two_words": 6,
+          "anonymization_marker": 35,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZJD20000703.json",
+        "sha256": "c50b2f03752b1dcfd43e609ace9a039ade40015c07cdfefd9ef7262fa73901cc",
+        "group_id": "DZJD20000703",
+        "split": "validation",
+        "kept": 425,
+        "removed": {
+          "anonymization_marker": 6,
+          "fewer_than_two_words": 23,
+          "same_as_standard": 75,
+          "exact_duplicate": 5
+        }
+      },
+      {
+        "file": "DZES20000633.json",
+        "sha256": "fa8e0f3346b461c9c9e31f845c12c7fd8a92220582f9ce414ad3d74ed1c96e98",
+        "group_id": "DZES20000633",
+        "split": "validation",
+        "kept": 15,
+        "removed": {
+          "same_as_standard": 609,
+          "anonymization_marker": 37
+        }
+      },
+      {
+        "file": "DZHF20002372.json",
+        "sha256": "44dd472ad89d01a56eaa9c09f8c8c80fea5e1cd0e11b5d9bace2fe65ae22b9c2",
+        "group_id": "DZHF20002372",
+        "split": "validation",
+        "kept": 218,
+        "removed": {
+          "fewer_than_two_words": 12,
+          "same_as_standard": 399,
+          "exact_duplicate": 2,
+          "anonymization_marker": 15
+        }
+      },
+      {
+        "file": "DZHF20002374.json",
+        "sha256": "ece162360d9a3670de66dc5c1a2cbd2bf0873c30a6ddabe4d642e495d35002b7",
+        "group_id": "DZHF20002374",
+        "split": "validation",
+        "kept": 245,
+        "removed": {
+          "same_as_standard": 286,
+          "anonymization_marker": 20,
+          "exact_duplicate": 4,
+          "fewer_than_two_words": 2
+        }
+      },
+      {
+        "file": "DZHF20002910.json",
+        "sha256": "f9459bbc0e9c9198a15bab9770b8575add72ec79328ed45e8f5657a53d9632c0",
+        "group_id": "DZHF20002910",
+        "split": "validation",
+        "kept": 283,
+        "removed": {
+          "same_as_standard": 165,
+          "fewer_than_two_words": 25
+        }
+      },
+      {
+        "file": "DZHF20002063.json",
+        "sha256": "e68fe9e358ae6e5c02c1c9fa03bfec50b9002ef6f80c97c569f2c0d38333d7b6",
+        "group_id": "DZHF20002063",
+        "split": "validation",
+        "kept": 82,
+        "removed": {
+          "same_as_standard": 398,
+          "fewer_than_two_words": 4,
+          "anonymization_marker": 17,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZHF20002733.json",
+        "sha256": "9bb2b756e917f25f0479669e8b885517dd0b8750942bdfefcb14dce4c0cdee48",
+        "group_id": "DZHF20002733",
+        "split": "validation",
+        "kept": 536,
+        "removed": {
+          "anonymization_marker": 36,
+          "same_as_standard": 71,
+          "fewer_than_two_words": 18
+        }
+      },
+      {
+        "file": "DZHF20002474.json",
+        "sha256": "7a61c46d79362aed2e6eac06ad957cfe18acb2d72e78c14890589b5bbefe8bfb",
+        "group_id": "DZHF20002474",
+        "split": "validation",
+        "kept": 72,
+        "removed": {
+          "same_as_standard": 223,
+          "fewer_than_two_words": 1,
+          "anonymization_marker": 2,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZES20000494.json",
+        "sha256": "946923efd7115dae669651f5d65f6f086f8d27112ff1f172005f40667bfa8a32",
+        "group_id": "DZES20000494",
+        "split": "validation",
+        "kept": 118,
+        "removed": {
+          "same_as_standard": 309,
+          "anonymization_marker": 1,
+          "fewer_than_two_words": 3
+        }
+      },
+      {
+        "file": "DZES20000245.json",
+        "sha256": "e3625c10a6a6d9671d429f57d4145272609242567078de32e88ae2720ddf58ec",
+        "group_id": "DZES20000245",
+        "split": "validation",
+        "kept": 671,
+        "removed": {
+          "same_as_standard": 150,
+          "anonymization_marker": 23,
+          "fewer_than_two_words": 23,
+          "exact_duplicate": 4
+        }
+      },
+      {
+        "file": "DZJD20000886.json",
+        "sha256": "20f1938b7234fa138fb51b00e9d69c9cd70fb130085bdd49279bd2f67aeda35c",
+        "group_id": "DZJD20000886",
+        "split": "validation",
+        "kept": 203,
+        "removed": {
+          "same_as_standard": 480,
+          "anonymization_marker": 32,
+          "fewer_than_two_words": 3,
+          "exact_duplicate": 5
+        }
+      },
+      {
+        "file": "DZHF20000385.json",
+        "sha256": "5c0220ed00f4ea252b65ff1054f0c42a9835f7d63ac6b0174f84647dd543dbe4",
+        "group_id": "DZHF20000385",
+        "split": "validation",
+        "kept": 410,
+        "removed": {
+          "fewer_than_two_words": 18,
+          "same_as_standard": 223,
+          "exact_duplicate": 2,
+          "anonymization_marker": 46
+        }
+      },
+      {
+        "file": "DZJD20000702.json",
+        "sha256": "1796c1850cb61a02f001dedd16b56ada860dc487bb8bd66564ac254e373d7ae2",
+        "group_id": "DZJD20000702",
+        "split": "validation",
+        "kept": 530,
+        "removed": {
+          "same_as_standard": 63,
+          "fewer_than_two_words": 20,
+          "exact_duplicate": 4,
+          "anonymization_marker": 8
+        }
+      },
+      {
+        "file": "DZHF20002168.json",
+        "sha256": "7a0a806e4441fb819c646c99b0787d68e1fcfb57e088f47b9d93b65354675172",
+        "group_id": "DZHF20002168",
+        "split": "validation",
+        "kept": 90,
+        "removed": {
+          "same_as_standard": 630,
+          "anonymization_marker": 76,
+          "exact_duplicate": 6,
+          "fewer_than_two_words": 4
+        }
+      },
+      {
+        "file": "DZES20000936.json",
+        "sha256": "b10f0b247e63b9c6eed9de3ecf4f2aa84799e304521459c564f382a118e8fc7c",
+        "group_id": "DZES20000936",
+        "split": "validation",
+        "kept": 123,
+        "removed": {
+          "same_as_standard": 180
+        }
+      },
+      {
+        "file": "DZES20000846.json",
+        "sha256": "1580d93e42a9e551cd7edca5b5283b65d7310048d24aaa1ffc6321e67ad43f06",
+        "group_id": "DZES20000846",
+        "split": "validation",
+        "kept": 152,
+        "removed": {
+          "exact_duplicate": 4,
+          "same_as_standard": 345,
+          "anonymization_marker": 8,
+          "fewer_than_two_words": 7
+        }
+      },
+      {
+        "file": "DZHF20002371.json",
+        "sha256": "973c5a102267ab909fc4a39d69955511641aba30308336aaa53d501aca7b9a9c",
+        "group_id": "DZHF20002371",
+        "split": "validation",
+        "kept": 43,
+        "removed": {
+          "same_as_standard": 170,
+          "fewer_than_two_words": 8,
+          "anonymization_marker": 5
+        }
+      },
+      {
+        "file": "DZJD20000352.json",
+        "sha256": "e412ec51e8c73826732f61032f20612ea92fef46b93f01fd564d2ce41ced6554",
+        "group_id": "DZJD20000352",
+        "split": "validation",
+        "kept": 199,
+        "removed": {
+          "same_as_standard": 290,
+          "fewer_than_two_words": 24,
+          "anonymization_marker": 17,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZES21001336.json",
+        "sha256": "fc83283666e87c7d029c219545ab4edb403163503fa692d26dacd628afd99220",
+        "group_id": "DZES21001336",
+        "split": "validation",
+        "kept": 23,
+        "removed": {
+          "same_as_standard": 424,
+          "anonymization_marker": 11,
+          "fewer_than_two_words": 3,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20002331.json",
+        "sha256": "5434387d24004da168eea5d72574ef6bbf1e4e5126d0b7e6e08dcb06f0f9cd0a",
+        "group_id": "DZHF20002331",
+        "split": "validation",
+        "kept": 248,
+        "removed": {
+          "same_as_standard": 633,
+          "fewer_than_two_words": 17,
+          "anonymization_marker": 14,
+          "exact_duplicate": 3
+        }
+      },
+      {
+        "file": "DZES20000227.json",
+        "sha256": "946052abb092de9962b3816e72d533c375a4c9aec988cd63974ddf15f23b5306",
+        "group_id": "DZES20000227",
+        "split": "validation",
+        "kept": 109,
+        "removed": {
+          "same_as_standard": 518,
+          "anonymization_marker": 39,
+          "fewer_than_two_words": 3,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZHF20002412.json",
+        "sha256": "ff87dff47c8fbd06b8653775b05686dab034c5b7717b7c78595537f13f31c1e4",
+        "group_id": "DZHF20002412",
+        "split": "validation",
+        "kept": 287,
+        "removed": {
+          "same_as_standard": 685,
+          "fewer_than_two_words": 19,
+          "anonymization_marker": 54,
+          "exact_duplicate": 7
+        }
+      },
+      {
+        "file": "DZHF20002643.json",
+        "sha256": "92b49dd5b629f7f61f91a82f6acbf8250aa0fad69956e4c3359641fc09c329f1",
+        "group_id": "DZHF20002643",
+        "split": "validation",
+        "kept": 83,
+        "removed": {
+          "anonymization_marker": 10,
+          "same_as_standard": 22
+        }
+      },
+      {
+        "file": "DZHF20002902.json",
+        "sha256": "b83fc2d6d79ad6af22e1617554908290dde9940da5801753537f3286253d9921",
+        "group_id": "DZHF20002902",
+        "split": "validation",
+        "kept": 339,
+        "removed": {
+          "same_as_standard": 167,
+          "fewer_than_two_words": 22,
+          "anonymization_marker": 16,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZJD20000251.json",
+        "sha256": "5fa59606745f73afc38337aa4108681dc1a46e567b5cdec2c12cb2365714bc04",
+        "group_id": "DZJD20000251",
+        "split": "validation",
+        "kept": 285,
+        "removed": {
+          "anonymization_marker": 97,
+          "same_as_standard": 101,
+          "fewer_than_two_words": 8,
+          "exact_duplicate": 4
+        }
+      },
+      {
+        "file": "DZES21001491.json",
+        "sha256": "b35f31e7b84bc9fc125b16739cfbc10441638cd7a0d63cfe848f121206c415a8",
+        "group_id": "DZES21001491",
+        "split": "validation",
+        "kept": 55,
+        "removed": {
+          "same_as_standard": 344,
+          "fewer_than_two_words": 2
+        }
+      },
+      {
+        "file": "DZHF20002207.json",
+        "sha256": "52652fc759c6bcfb4eca43917e657770324a05766a2a462cfe03a05ef4507f13",
+        "group_id": "DZHF20002207",
+        "split": "validation",
+        "kept": 209,
+        "removed": {
+          "same_as_standard": 557,
+          "anonymization_marker": 28,
+          "fewer_than_two_words": 29,
+          "exact_duplicate": 10
+        }
+      },
+      {
+        "file": "DZES20000068.json",
+        "sha256": "6fbfbb382e33aa2d28fc6ac425c5562e3cba0167296642f1520866a63dd9faa6",
+        "group_id": "DZES20000068",
+        "split": "validation",
+        "kept": 184,
+        "removed": {
+          "same_as_standard": 59,
+          "anonymization_marker": 7,
+          "fewer_than_two_words": 8,
+          "exact_duplicate": 8
+        }
+      },
+      {
+        "file": "DZHF20000740.json",
+        "sha256": "51615db568bbce6737fedc56f4c85e00346e43b9ff5481f8de01623e37cf8cc5",
+        "group_id": "DZHF20000740",
+        "split": "validation",
+        "kept": 124,
+        "removed": {
+          "same_as_standard": 340,
+          "anonymization_marker": 26,
+          "exact_duplicate": 6,
+          "fewer_than_two_words": 1
+        }
+      },
+      {
+        "file": "DZJD20001689.json",
+        "sha256": "0aaf6fb4e8369ac07fc218f34d3377b7fae243bda4a77a14c7c7e197d6d8b5f2",
+        "group_id": "DZJD20001689",
+        "split": "test",
+        "kept": 118,
+        "removed": {
+          "same_as_standard": 453,
+          "fewer_than_two_words": 9,
+          "exact_duplicate": 1,
+          "anonymization_marker": 4
+        }
+      },
+      {
+        "file": "DZHF20001520.json",
+        "sha256": "d4891d3440835c5527912f38fcaeb6668ad6c51afa4fa904b91ab2d3a8457963",
+        "group_id": "DZHF20001520",
+        "split": "test",
+        "kept": 144,
+        "removed": {
+          "fewer_than_two_words": 7,
+          "same_as_standard": 30,
+          "anonymization_marker": 37
+        }
+      },
+      {
+        "file": "DZJD20000338.json",
+        "sha256": "5dbfa39912138cb8c3373343cdb4001b23ada2a171fb50990a366cb90490aad5",
+        "group_id": "DZJD20000338",
+        "split": "test",
+        "kept": 128,
+        "removed": {
+          "same_as_standard": 450,
+          "fewer_than_two_words": 4,
+          "anonymization_marker": 6,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZHF20001841.json",
+        "sha256": "159b57183bbff2dff9aa512d4891ba37fd823030548d161ec301b58bb8b9bf42",
+        "group_id": "DZHF20001841",
+        "split": "test",
+        "kept": 126,
+        "removed": {
+          "same_as_standard": 185,
+          "anonymization_marker": 12,
+          "fewer_than_two_words": 3,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20001596.json",
+        "sha256": "355134077f3909358e742b583703b328df148a6cef3353a78d457254a644fdd4",
+        "group_id": "DZHF20001596",
+        "split": "test",
+        "kept": 211,
+        "removed": {
+          "same_as_standard": 369,
+          "fewer_than_two_words": 16,
+          "exact_duplicate": 5,
+          "anonymization_marker": 5
+        }
+      },
+      {
+        "file": "DZES20000390.json",
+        "sha256": "cbd9f6daeab89ce74c531b11664dadab2f9c3b62a9177929d73a3e2227d81f3a",
+        "group_id": "DZES20000390",
+        "split": "test",
+        "kept": 306,
+        "removed": {
+          "same_as_standard": 338,
+          "fewer_than_two_words": 7,
+          "anonymization_marker": 8,
+          "exact_duplicate": 4
+        }
+      },
+      {
+        "file": "DZJD21002127.json",
+        "sha256": "cea9e368ee48cd23eebdc1a7f10187f90aa84bdcdc1dcfb8ebe5e05efe933d83",
+        "group_id": "DZJD21002127",
+        "split": "test",
+        "kept": 100,
+        "removed": {
+          "exact_duplicate": 1,
+          "same_as_standard": 418,
+          "fewer_than_two_words": 10,
+          "anonymization_marker": 2
+        }
+      },
+      {
+        "file": "DZHF20001148.json",
+        "sha256": "b97776a9adab44c0c6602bb2aa906416268386a078df383a45bf9795ce22d1cf",
+        "group_id": "DZHF20001148",
+        "split": "test",
+        "kept": 155,
+        "removed": {
+          "same_as_standard": 387,
+          "fewer_than_two_words": 15,
+          "anonymization_marker": 36,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZJD20000978.json",
+        "sha256": "f4b0a8960a08c5df99d8adb22c1c26d8f50e4e70a2b11d0c5c8e167055514be2",
+        "group_id": "DZJD20000978",
+        "split": "test",
+        "kept": 78,
+        "removed": {
+          "same_as_standard": 345,
+          "anonymization_marker": 65,
+          "exact_duplicate": 1,
+          "fewer_than_two_words": 2
+        }
+      },
+      {
+        "file": "DZJD21002131.json",
+        "sha256": "2bb0fa8e3aefabb1a0d83941877709a799b3e2924f46e4aaffea799473aa2bc3",
+        "group_id": "DZJD21002131",
+        "split": "test",
+        "kept": 195,
+        "removed": {
+          "exact_duplicate": 5,
+          "same_as_standard": 400,
+          "anonymization_marker": 14,
+          "fewer_than_two_words": 37
+        }
+      },
+      {
+        "file": "DZJD20000550.json",
+        "sha256": "663880f5b69c5f2ec9f1cc3e50de487e246f0120277358f846eaf04a1c414aba",
+        "group_id": "DZJD20000550",
+        "split": "test",
+        "kept": 114,
+        "removed": {
+          "same_as_standard": 406,
+          "anonymization_marker": 13,
+          "fewer_than_two_words": 9,
+          "exact_duplicate": 3
+        }
+      },
+      {
+        "file": "DZHF20002082.json",
+        "sha256": "82f549d4e9476a3b5d78a7c643891ed96ddcfa525d55c2b43c047e803df0fcaf",
+        "group_id": "DZHF20002082",
+        "split": "test",
+        "kept": 152,
+        "removed": {
+          "same_as_standard": 338,
+          "anonymization_marker": 7
+        }
+      },
+      {
+        "file": "DZJD20001526.json",
+        "sha256": "d21ae1410916661f2334a9ba14b0cbdb9ff7248de97c44b0de0a075a8e8c5f6c",
+        "group_id": "DZJD20001526",
+        "split": "test",
+        "kept": 55,
+        "removed": {
+          "same_as_standard": 288,
+          "anonymization_marker": 53,
+          "fewer_than_two_words": 9,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZJD20000380.json",
+        "sha256": "a2db8511735f4402b78799ea422f6d51c527cb2ae95cfef937b2674ca24d12d8",
+        "group_id": "DZJD20000380",
+        "split": "test",
+        "kept": 532,
+        "removed": {
+          "anonymization_marker": 27,
+          "same_as_standard": 253,
+          "exact_duplicate": 2,
+          "fewer_than_two_words": 5
+        }
+      },
+      {
+        "file": "DZJD21002144.json",
+        "sha256": "1e3ffc89a246202f4e3306144061164365085e79a5c35f82442c8a0b9cbe7264",
+        "group_id": "DZJD21002144",
+        "split": "test",
+        "kept": 143,
+        "removed": {
+          "same_as_standard": 388,
+          "anonymization_marker": 14,
+          "fewer_than_two_words": 7
+        }
+      },
+      {
+        "file": "DZJD20000838.json",
+        "sha256": "d571a4ef188e3cb5a07d12b709cc40e0abbb9ae431ad73f6ff3c5e85595a61fe",
+        "group_id": "DZJD20000838",
+        "split": "test",
+        "kept": 162,
+        "removed": {
+          "same_as_standard": 89,
+          "anonymization_marker": 8,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZJD21002133.json",
+        "sha256": "920ea8e2a9616e0fd345cb484ce642f03025bd584d75c5f081b7d5c7432e7288",
+        "group_id": "DZJD21002133",
+        "split": "test",
+        "kept": 218,
+        "removed": {
+          "same_as_standard": 387,
+          "exact_duplicate": 10,
+          "fewer_than_two_words": 22,
+          "anonymization_marker": 55
+        }
+      },
+      {
+        "file": "DZES20000032.json",
+        "sha256": "b99d7b4d038e4fb716322e38ee68d199f388e6fcdbaf6b17c261877790c0270b",
+        "group_id": "DZES20000032",
+        "split": "test",
+        "kept": 30,
+        "removed": {
+          "same_as_standard": 58,
+          "anonymization_marker": 5
+        }
+      },
+      {
+        "file": "DZHF20000877.json",
+        "sha256": "a296a435c368604541da9786cca905cc6490753bf61c9d6c25cb7a4b3f52d91d",
+        "group_id": "DZHF20000877",
+        "split": "test",
+        "kept": 160,
+        "removed": {
+          "same_as_standard": 454,
+          "fewer_than_two_words": 8,
+          "exact_duplicate": 4,
+          "anonymization_marker": 17
+        }
+      },
+      {
+        "file": "DZES21001506.json",
+        "sha256": "2df7aa3c763572480b4cfb6c279f4b06f12aacf5cd6cf7b9d5a60487238de141",
+        "group_id": "DZES21001506",
+        "split": "test",
+        "kept": 146,
+        "removed": {
+          "fewer_than_two_words": 10,
+          "same_as_standard": 418,
+          "anonymization_marker": 6,
+          "exact_duplicate": 5
+        }
+      },
+      {
+        "file": "DZJD20000673.json",
+        "sha256": "a9dc3711c29dd92cb6c9d345101a4feaecbbc26af9a633513e63ba740d377f2e",
+        "group_id": "DZJD20000673",
+        "split": "test",
+        "kept": 379,
+        "removed": {
+          "fewer_than_two_words": 33,
+          "same_as_standard": 276,
+          "exact_duplicate": 10,
+          "anonymization_marker": 40
+        }
+      },
+      {
+        "file": "DZHF20001927.json",
+        "sha256": "ee415d9f1b47983a0ac7e53b55405c8c342f902caf896bd545789ed77dd72d54",
+        "group_id": "DZHF20001927",
+        "split": "test",
+        "kept": 59,
+        "removed": {
+          "anonymization_marker": 8,
+          "same_as_standard": 153,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZHF20000451.json",
+        "sha256": "72f6060d33a05c1ef611a291b43410cba9f9d54b8ff9f3cd916fe5e79673e0dd",
+        "group_id": "DZHF20000451",
+        "split": "test",
+        "kept": 267,
+        "removed": {
+          "same_as_standard": 376,
+          "fewer_than_two_words": 32,
+          "anonymization_marker": 24,
+          "exact_duplicate": 2
+        }
+      },
+      {
+        "file": "DZJD20000009.json",
+        "sha256": "abeb0984becb053889bb456acb29e7d67eaba5991ae294e26e48afd5144dbbc0",
+        "group_id": "DZJD20000009",
+        "split": "test",
+        "kept": 147,
+        "removed": {
+          "same_as_standard": 209,
+          "fewer_than_two_words": 19,
+          "anonymization_marker": 17,
+          "exact_duplicate": 6
+        }
+      },
+      {
+        "file": "DZJD20001536.json",
+        "sha256": "025ed41b89de1a2310f52bc7319b68ac9a15796299d788fb3bc3c43f412befcb",
+        "group_id": "DZJD20001536",
+        "split": "test",
+        "kept": 155,
+        "removed": {
+          "same_as_standard": 173,
+          "anonymization_marker": 30
+        }
+      },
+      {
+        "file": "DZES21001394.json",
+        "sha256": "3e81404bd607a5be6f7afe62cc175f1b033a505979c2d75135740f377209b1f4",
+        "group_id": "DZES21001394",
+        "split": "test",
+        "kept": 64,
+        "removed": {
+          "fewer_than_two_words": 2,
+          "same_as_standard": 324,
+          "anonymization_marker": 4
+        }
+      },
+      {
+        "file": "DZES21001729.json",
+        "sha256": "7d744f3a0df56a1648beca632a67129ccb2d9fdd84eb329229e8dd08f22d6fb1",
+        "group_id": "DZES21001729",
+        "split": "test",
+        "kept": 221,
+        "removed": {
+          "same_as_standard": 262,
+          "fewer_than_two_words": 3,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZES20000042.json",
+        "sha256": "5a653442017cf32ac8f2af545ae7cbfb468f194bc1a72be0cb64b1c4726faa80",
+        "group_id": "DZES20000042",
+        "split": "test",
+        "kept": 116,
+        "removed": {
+          "same_as_standard": 357,
+          "fewer_than_two_words": 8,
+          "anonymization_marker": 15
+        }
+      },
+      {
+        "file": "DZJD21002092.json",
+        "sha256": "4fe19b0cc93087ff8b0bbccae13fe855edc861a68cc6d3297b06d4cdb5eea237",
+        "group_id": "DZJD21002092",
+        "split": "test",
+        "kept": 195,
+        "removed": {
+          "fewer_than_two_words": 11,
+          "anonymization_marker": 18,
+          "same_as_standard": 166,
+          "exact_duplicate": 1
+        }
+      },
+      {
+        "file": "DZES21001638.json",
+        "sha256": "3497a210dd5c2fdb6f250348544dafaf4a9306b3aa44b0c4d19246d3d9034c11",
+        "group_id": "DZES21001638",
+        "split": "test",
+        "kept": 156,
+        "removed": {
+          "same_as_standard": 616,
+          "anonymization_marker": 26,
+          "fewer_than_two_words": 8,
+          "exact_duplicate": 1
+        }
+      }
+    ]
+  },
+  "truncated_sentences": {
+    "train": 0,
+    "validation": 0,
+    "test": 0
+  },
+  "evaluation": "문장별 BOS + 최대 126 내용토큰 + EOS. shifted non-PAD 토큰 가중 평균 NLL의 exp. 같은 test를 최종 1회 평가.",
+  "generation_settings": {
+    "max_new_tokens": 40,
+    "do_sample": true,
+    "temperature": 0.8,
+    "top_p": 0.9,
+    "top_k": 50,
+    "repetition_penalty": 1.1,
+    "no_repeat_ngram_size": 3
+  },
+  "prompts": [
+    "오늘 바당에 가 보니까",
+    "우리 어멍이 아침에",
+    "친구하고 시장에 가서",
+    "어릴 때 우리 동네에서는",
+    "비가 많이 오는 날에는"
+  ],
+  "models": {
+    "base": {
+      "validation": {
+        "loss": 8.19349521696156,
+        "perplexity": 3617.3435770963038,
+        "tokens": 75304
+      },
+      "trainable_parameters": 0,
+      "total_parameters": 125164032,
+      "train_seconds": 0.0,
+      "fit_seconds": 0.0,
+      "history": [],
+      "test": {
+        "loss": 7.949811659509078,
+        "perplexity": 2835.0409471850908,
+        "tokens": 60582
+      },
+      "generations": [
+        {
+          "prompt": "오늘 바당에 가 보니까",
+          "continuation": "우리 쪽에서는 이쪽에서는 이제 다들 지금 거의 이거 어떻게 할 거냐 이러면서 뭐~ 이러고 있는 그런 상황이죠.\n예. 아까 저희가 어제 오후에 봤는데 네"
+        },
+        {
+          "prompt": "우리 어멍이 아침에",
+          "continuation": "일어나면 두 개의 얼굴이 마주친다.\n그 얼굴에는 각각 다른 의미를 지닌 한 명의 얼굴이 겹쳐진다.\n그 얼굴은 항상 다르다.\n또한 다른 얼굴들은 서로 다른 의미를 지닌다.\n우리는 각기 다른 표정으로 사물을 바라보는가"
+        },
+        {
+          "prompt": "친구하고 시장에 가서",
+          "continuation": "장사하는 게 아니라면 지금부터라도 시장 상황을 정확히 알아야 한다.\n또한 내가 시장을 직접 보는 것도 좋다.\n그래서 그 시장이 너무 조용하면 안 된다.\n시장 분위기가 잘 형성돼 있기 때문에 여러 가지 마케팅"
+        },
+        {
+          "prompt": "어릴 때 우리 동네에서는",
+          "continuation": "거의 초등학교 3학년 때부터 니까..\n\"우리 학교 다닐 때는 학교 다닐 때도 니더.\"\n\"그럼 우리 집은 왜 이렇게 안 좋아할까?\"\n나는 가 그런"
+        },
+        {
+          "prompt": "비가 많이 오는 날에는",
+          "continuation": "빗방울이 떨어지는 곳이 있겠다.\n낮 최고기온은 서울 18도, 인천 16도, 수원 17도, 춘천 15도, 강릉 20도, 청주 19도, 대전 19도, 전주 21도, 광주 21도, 대구 21"
+        }
+      ]
+    },
+    "full": {
+      "trainable_parameters": 125164032,
+      "total_parameters": 125164032,
+      "learning_rate": 5e-05,
+      "history": [
+        {
+          "epoch": 1,
+          "train_loss": 4.9776320740542666,
+          "validation_loss": 4.81931114014411,
+          "validation_ppl": 123.87972561094863,
+          "train_seconds": 99.6207582729403
+        },
+        {
+          "epoch": 2,
+          "train_loss": 4.478368717005517,
+          "validation_loss": 4.797454584294547,
+          "validation_ppl": 121.20151630139611,
+          "train_seconds": 100.10552672692575
+        },
+        {
+          "epoch": 3,
+          "train_loss": 4.138166293448045,
+          "validation_loss": 4.874420011897124,
+          "validation_ppl": 130.89821178486264,
+          "train_seconds": 99.72830707300454
+        }
+      ],
+      "train_seconds": 299.4545920728706,
+      "best_epoch": 2,
+      "validation": {
+        "loss": 4.797454584294547,
+        "perplexity": 121.20151630139611,
+        "tokens": 75304
+      },
+      "fit_seconds": 308.3715364020318,
+      "test": {
+        "loss": 4.905592333301958,
+        "perplexity": 135.0428767140706,
+        "tokens": 60582
+      },
+      "generations": [
+        {
+          "prompt": "오늘 바당에 가 보니까",
+          "continuation": "우리 아방도"
+        },
+        {
+          "prompt": "우리 어멍이 아침에",
+          "continuation": "일어나서 저녁이나"
+        },
+        {
+          "prompt": "친구하고 시장에 가서",
+          "continuation": "팔고 싶댄"
+        },
+        {
+          "prompt": "어릴 때 우리 동네에서는",
+          "continuation": "막 겅해가지고 겅해신디"
+        },
+        {
+          "prompt": "비가 많이 오는 날에는",
+          "continuation": "아무 때나 겅 하지 않으믄"
+        }
+      ]
+    },
+    "lora": {
+      "trainable_parameters": 294912,
+      "total_parameters": 125458944,
+      "learning_rate": 0.0002,
+      "history": [
+        {
+          "epoch": 1,
+          "train_loss": 5.748812471796666,
+          "validation_loss": 5.372479296080126,
+          "validation_ppl": 215.3962372873431,
+          "train_seconds": 57.39072210807353
+        },
+        {
+          "epoch": 2,
+          "train_loss": 5.496230745086678,
+          "validation_loss": 5.271567054145916,
+          "validation_ppl": 194.72086161973877,
+          "train_seconds": 57.611646126024425
+        },
+        {
+          "epoch": 3,
+          "train_loss": 5.417335560884262,
+          "validation_loss": 5.224140644041825,
+          "validation_ppl": 185.7015182305701,
+          "train_seconds": 57.26068815588951
+        }
+      ],
+      "train_seconds": 172.26305638998747,
+      "lora_config": {
+        "r": 8,
+        "alpha": 16,
+        "dropout": 0.05,
+        "target_modules": [
+          "c_attn"
+        ]
+      },
+      "best_epoch": 3,
+      "validation": {
+        "loss": 5.224140644041825,
+        "perplexity": 185.7015182305701,
+        "tokens": 75304
+      },
+      "fit_seconds": 181.525696658995,
+      "test": {
+        "loss": 5.2474586305879285,
+        "perplexity": 190.08258404371054,
+        "tokens": 60582
+      },
+      "generations": [
+        {
+          "prompt": "오늘 바당에 가 보니까",
+          "continuation": "이제 그걸로 하면은 이제 다 해먹을 수 있는디"
+        },
+        {
+          "prompt": "우리 어멍이 아침에",
+          "continuation": "일어나면 뭔가 "
+        },
+        {
+          "prompt": "친구하고 시장에 가서",
+          "continuation": "막 겅 했댄"
+        },
+        {
+          "prompt": "어릴 때 우리 동네에서는",
+          "continuation": "우리 엄마한테 겅했댄 이름"
+        },
+        {
+          "prompt": "비가 많이 오는 날에는",
+          "continuation": "비 내리는 날에도 비가 내리고 비는 내려 불어나면 이"
+        }
+      ]
+    }
+  },
+  "timing_note": "train_seconds=학습 배치의 forward/backward/optimizer 및 데이터 로딩. fit_seconds=학습+에포크 검증+체크포인트 저장. 다운로드/토큰화/최종평가 제외."
+}

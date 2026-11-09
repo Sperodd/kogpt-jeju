@@ -24,7 +24,7 @@ class CompareRequest(BaseModel):
 class Models:
     def __init__(self):
         if not (MODEL_DIR / "config.json").is_file() and not (MODEL_DIR / "adapter_config.json").is_file():
-            raise FileNotFoundError(f"먼저 python model.py로 학습하세요. 모델 경로: {MODEL_DIR}")
+            raise FileNotFoundError(f"먼저 bash setup.sh experiment로 학습하세요. 모델 경로: {MODEL_DIR}")
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         metadata = MODEL_DIR / "experiment_meta.json"
         self.prepend_bos = json.loads(metadata.read_text(encoding="utf-8")).get("prepend_bos", False) if metadata.is_file() else False

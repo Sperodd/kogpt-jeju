@@ -86,7 +86,7 @@ bash setup.sh
 
 ### 2. 데이터 준비
 
-**준비된 `prepared/` 폴더가 있다면 폴더 전체를 업로드하고 다음 단계로 넘어갑니다.** Git에는 포함되지 않으므로 별도로 옮겨야 합니다. 비교 실험에는 `sentences.txt`가 필요하지 않습니다.
+**준비된 `prepared/` 폴더가 있다면 폴더 전체를 업로드하고 다음 단계로 넘어갑니다.** Git에는 포함되지 않으므로 별도로 옮겨야 합니다.
 
 원천 JSON에서 직접 준비하려면:
 
@@ -179,13 +179,12 @@ kogpt-jeju/
 ├── common.py                    # 모델 경로와 토크나이저
 ├── app.py / index.html          # FastAPI 비교 서버와 웹 화면
 ├── setup.sh / requirements.txt  # 설치 및 실행
-├── model.py / data_loader.py    # TXT 기반 단일 모델 실습 도구
 ├── results/                     # 웹 화면 이미지
 ├── prepared/                    # 비교 실험 데이터 (Git 제외)
 └── outputs/                     # 모델 및 실험 결과 (Git 제외)
 ```
 
-`setup.sh experiment`는 두 방식 비교 실험입니다. `train`과 `all`은 `sentences.txt`를 사용하는 단일 모델 실습 명령입니다.
+`setup.sh`는 `install`(기본값), `experiment`, `serve` 세 명령을 제공합니다. 서버의 기본 모델 경로는 `outputs/assignment4/full`이며 `MODEL_DIR`로 변경할 수 있습니다.
 
 ## 해석의 범위
 

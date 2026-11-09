@@ -71,7 +71,7 @@ kogpt-jeju/
 데리고 가고 싶어그네 할아버지가이
 ```
 
-데이터는 aihub의 **한국어 방언 발화(제주도)**를 사용했습니다.
+데이터는 aihub의 **한국어 방언 발화(제주도)** 를 사용했습니다.
 
 링크: [한국어 방언 발화(제주도)](https://aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=data&dataSetSn=121)
 
